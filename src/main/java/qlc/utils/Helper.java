@@ -1,13 +1,9 @@
 package qlc.utils;
 
 import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.Arrays;
-import java.util.UUID;
 
-/**
- * Byte Handle Helper
- * 
- */
 public class Helper {
 	
     public static byte[] reverse(byte[] v) {
@@ -54,9 +50,13 @@ public class Helper {
 	}
     
 	public static String getSeed() {
-		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-		String seed = byteToHexString(uuid.getBytes());
-		return seed;
+		//String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+		//String seed = byteToHexString(uuid.getBytes());
+		//return seed;
+		
+		SecureRandom random = new SecureRandom();
+		byte[] seed = random.generateSeed(20);
+		return byteToHexString(seed);
 	}
 	
 	public static String hexStringToBinary(String hex) {
