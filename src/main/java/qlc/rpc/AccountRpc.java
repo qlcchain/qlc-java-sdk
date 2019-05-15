@@ -1,27 +1,49 @@
 package qlc.rpc;
 
 import qlc.mng.AccountMng;
+import qlc.network.QlcException;
 
 public class AccountRpc {
 
-	// generate key pair from seed
-	public static String keyPairFromSeed(String seed) {
+	/**
+     * Create a new account by seed and index
+     * @param seed
+     * @param index : optional, index for account, if not set, default value is 0
+     * @return account: the private and public key for account
+			privKey: private key for the new account
+			pubKey: public key for the new account
+	 * @throws QlcException 
+     */
+	public static String create(String seed, Integer index) throws QlcException {
 		
-		return AccountMng.keyPairFromSeed(seed);
+		AccountMng mng = new AccountMng();
+		return mng.keyPairFromSeed(seed, index);
 		
 	}
 
-	// convert public key to address
-	public static String publicKeyToAddress(String publicKey) {
-		
-		return AccountMng.publicKeyToAddress(publicKey);
+	/**
+     * Return account address by public key
+     * @param publicKey: public key
+     * @return account address
+	 * @throws QlcException 
+     */
+	public static String publicKeyToAddress(String publicKey) throws QlcException {
+
+		AccountMng mng = new AccountMng();
+		return mng.publicKeyToAddress(publicKey);
 		
 	}
 	
-	// convert address to public key
-	public static String addressToPublicKey(String address) {
-		
-		return AccountMng.addressToPublicKey(address);
+	/**
+     * Return public key for account address
+     * @param address:account address
+     * @return public key
+	 * @throws QlcException 
+     */
+	public static String addressToPublicKey(String address) throws QlcException {
+
+		AccountMng mng = new AccountMng();
+		return mng.addressToPublicKey(address);
 		
 	}
 
