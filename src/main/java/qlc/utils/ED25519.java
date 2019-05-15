@@ -6,12 +6,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-/**
- * 
- * @Description 
- * @copy yfhuang521@gmail.com
- * @date 2019年4月30日 下午3:27:49
- */
 public class ED25519 {
 	static final int b = 256;
 	static final BigInteger q = new BigInteger("57896044618658097711785492504343953926634992332820282019728792003956564819949");
@@ -145,7 +139,7 @@ public class ED25519 {
 		return hsum;
 	}
 	
-	static byte[] signature(byte[] m, byte[] sk, byte[] pk) {
+	public static byte[] signature(byte[] m, byte[] sk, byte[] pk) {
 		byte[] h = H(sk);
 		//System.out.println("signature open with m="+test.getHex(m)+" h="+test.getHex(h)+" pk="+test.getHex(pk));
 		BigInteger a = BigInteger.valueOf(2).pow(b-2);
