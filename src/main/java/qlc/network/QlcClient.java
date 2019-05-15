@@ -26,7 +26,6 @@ public class QlcClient {
 	public JSONObject call(String method, JSONArray params) throws QlcException, IOException {
 		
 		JSONObject response = send(makeRequest(method, params));
-		
 		if (response.containsKey("result"))
 			return response;
 		else if (response.containsKey("error"))
@@ -42,6 +41,7 @@ public class QlcClient {
 		request.put("id", UUID.randomUUID().toString().replace("-", ""));
 		request.put("method", method);
 		request.put("params", params);
+		System.out.println(request.toJSONString());
 		return request;
 		
 	}
