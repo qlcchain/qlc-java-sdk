@@ -1,12 +1,17 @@
 package qlc.mng;
 
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alibaba.fastjson.JSONObject;
 
+import qlc.network.QlcException;
 import qlc.utils.Blake2b;
+import qlc.utils.Constants;
 import qlc.utils.ED25519;
 import qlc.utils.Helper;
 
@@ -32,17 +37,18 @@ public final class AccountMng {
 	}
 	
 	// generate key pair from seed
-	public static String keyPairFromSeed(String seed) {
+	public String keyPairFromSeed(String seed, Integer index) throws QlcException {
 		
-		// init the seed
-		if (seed == null) {
-			seed = Helper.getSeed();
-		}
+		// check param
+		if (seed == null)
+			throw new QlcException(Constants.EXCEPTION_CODE_1001, Constants.EXCEPTION_MSG_1001);
 		byte[] seedByte = Helper.hexStringToBytes(seed);
+		index = (index==null) ? 0 : index;
 		
 		// generate the public key and private key
 		final Blake2b blake2b = Blake2b.Digest.newInstance(64);
-		blake2b.update(seedByte);
+		blake2b.update(seedByte);//add seed
+		blake2b.update(ByteBuffer.allocate(4).putInt(index).array()); //and add index
 		byte[] privateKey = blake2b.digest();
 		byte[] publicKey = ED25519.publickey(privateKey);
 		
@@ -54,10 +60,10 @@ public final class AccountMng {
 	}
 
 	// convert public key to address
-	public static String publicKeyToAddress(String publicKey) {
+	public String publicKeyToAddress(String publicKey) throws QlcException {
 		
 		if (publicKey == null)
-			return null;
+			throw new QlcException(Constants.EXCEPTION_CODE_1002, Constants.EXCEPTION_MSG_1002);
 		
 		intMap();
 		
@@ -90,12 +96,12 @@ public final class AccountMng {
 	}
 	
 	// convert address to public key
-	public static String addressToPublicKey(String address) {
+	public String addressToPublicKey(String address) throws QlcException {
 		
-		if (address.length() != 64)
-			return null;
-		if (!address.substring(0, 4).equals("qlc_"))
-			return null;
+		if (StringUtils.isBlank(address))
+			throw new QlcException(Constants.EXCEPTION_CODE_1003, Constants.EXCEPTION_MSG_1003);
+		if (address.length()!=64 || !address.substring(0, 4).equals("qlc_"))
+			throw new QlcException(Constants.EXCEPTION_CODE_1004, Constants.EXCEPTION_MSG_1004);
 		
 		intMap();
 		
