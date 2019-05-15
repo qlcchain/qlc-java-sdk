@@ -1,10 +1,3 @@
-/** 
- * @Package qlc.mng 
- * @Description 
- * @author yfhuang521@gmail.com
- * @date 2019年4月30日 下午2:29:12 
- * @version V1.0 
- */ 
 package qlc.mng;
 
 import java.util.Arrays;
@@ -17,11 +10,6 @@ import qlc.utils.Blake2b;
 import qlc.utils.ED25519;
 import qlc.utils.Helper;
 
-/** 
- * @Description Account related sdk
- * @author yfhuang521@gmail.com
- * @date 2019年4月30日 下午2:29:12 
- */
 public final class AccountMng {
 
 	public static final char[] ACCOUNT_ALPHABET = "13456789abcdefghijkmnopqrstuwxyz".toCharArray();
