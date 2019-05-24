@@ -14,7 +14,6 @@ import qlc.utils.Checking;
 import qlc.utils.Constants;
 import qlc.utils.HashUtil;
 import qlc.utils.Helper;
-import qlc.utils.SeedUtil;
 
 public final class AccountMng {
 	
@@ -56,8 +55,8 @@ public final class AccountMng {
     	byte[] seedByte = Helper.hexStringToBytes(seed);
     	index = (index==null) ? 0 : index;
     	
-    	Checking.check(SeedUtil.isValid(seedByte), "Invalid seed " + seed);
-    	Checking.check(index >= 0, "Invalid index " + index);
+    	Checking.checkSeed(seedByte);
+    	Checking.check(index<0, "Invalid index " + index);
 
 		byte[] privateKey = HashUtil.digest256(seedByte, ByteBuffer.allocate(4).putInt(index).array());
 		byte[] publicKey = WalletMng.createPublicKey(privateKey);

@@ -8,6 +8,10 @@ public class Helper {
     private static final char[] HEX_ARRAY = "0123456789abcdef".toCharArray();
 	
     public static byte[] reverse(byte[] v) {
+    	
+    	if (v == null)
+    		return null;
+    	
         byte[] result = new byte[v.length];
         for (int i=0; i<v.length; i++) {
             result[i] = v[v.length-i-1];
