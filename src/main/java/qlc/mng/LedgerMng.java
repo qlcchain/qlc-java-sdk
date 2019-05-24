@@ -6,6 +6,8 @@ import java.math.BigInteger;
 import org.apache.commons.codec.binary.Base64;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
 
 import qlc.bean.Address;
 import qlc.bean.StateBlock;
@@ -13,33 +15,26 @@ import qlc.bean.Token;
 import qlc.bean.TokenMate;
 import qlc.network.QlcException;
 import qlc.utils.Constants;
+import qlc.utils.Helper;
+import qlc.utils.WorkUtil;
 
 public class LedgerMng {
 
-	/**
-	 * Return the number of blocks (not include smartcontrant block) and unchecked blocks of chain
-	 * @param url
-	 * @param params
-	 * @return: count: int, number of blocks , not include smartcontrant block
-					unchecked: int, number of unchecked blocks
-	 * @throws QlcException
-	 * @throws IOException
-	 */
-	public static void generateSendBlock(JSONArray params) throws QlcException, IOException {
+	// 
+	public static JSONObject generateSendBlock(JSONArray params) throws QlcException, IOException {
 		
-		String from = params.getString(0);
-		String to = params.getString(1);
-		String tokenName = params.getString(2);
-		BigInteger amount = params.getBigInteger(3);
-		String sender = params.getString(4);
-		String receiver = params.getString(5);
-		String message = params.getString(6);
-		String privateKey = params.getString(7);
+		JSONObject arrayOne = params.getJSONObject(0);
+		String from = arrayOne.getString("from");
+		String tokenName = arrayOne.getString("tokenName");
+		String to = arrayOne.getString("to");
+		BigInteger amount = arrayOne.getBigInteger("amount");
+		String sender = arrayOne.getString("sender");
+		String receiver = arrayOne.getString("receiver");
+		String message = arrayOne.getString("message");
+		String privateKey = params.getString(1);
 
-		AccountMng accountMng = new AccountMng();
-		
 		// send address info
-		Address sendAddress = new Address(from, accountMng.addressToPublicKey(from), privateKey);
+		Address sendAddress = new Address(from, AccountMng.addressToPublicKey(from), privateKey);
 		
 		// token info
 		Token token = Token.getTokenByTokenName(tokenName);
@@ -51,13 +46,32 @@ public class LedgerMng {
 		}
 		
 		// create send block
-		StateBlock block = new StateBlock(Constants.BLOCK_TYPE_SEND, token.getTokenId(), from, tokenMate.getBalance().add(amount),
-				tokenMate.getHeader(), accountMng.addressToPublicKey(to), Base64.encodeBase64String(sender.getBytes()), 
-				Base64.encodeBase64String(receiver.getBytes()), message, System.currentTimeMillis()/1000+"", tokenMate.getRepresentative());
+		StateBlock block = new StateBlock(Constants.BLOCK_TYPE_OPEN, token.getTokenId(), from, tokenMate.getBalance().subtract(amount),
+				tokenMate.getHeader(), AccountMng.addressToPublicKey(to), Base64.encodeBase64String(sender.getBytes()), 
+				Base64.encodeBase64String(receiver.getBytes()), message, new Long(System.currentTimeMillis()/1000), tokenMate.getRepresentative());
+		block.setVote(new BigInteger("0"));
+		block.setNetwork(new BigInteger("0"));
+		block.setStorage(new BigInteger("0"));
+		block.setOracle(new BigInteger("0"));
+		block.setPovHeight(0l);
+		block.setExtra("0000000000000000000000000000000000000000000000000000000000000000");
 		
-		// set work
+		// block hash
+		byte[] hash = BlockMng.getHash(block);
 		
 		// set signature
+		String priKey = sendAddress.getPrivateKey().replace(sendAddress.getPublicKey(), "");
+		byte[] signature = WalletMng.sign(hash, Helper.hexStringToBytes(priKey));
+		boolean signCheck = WalletMng.verify(signature, hash, Helper.hexStringToBytes(sendAddress.getPublicKey()));
+		if (!signCheck)
+			throw new QlcException(Constants.EXCEPTION_CODE_1005, Constants.EXCEPTION_MSG_1005);
+		block.setSignature(Helper.byteToHexString(signature));
+		
+		// set work
+		String work = WorkUtil.perform(BlockMng.getRoot(block));
+		block.setWork(work);
+		
+		return JSONObject.parseObject(new Gson().toJson(block));
 		
 	}
 	

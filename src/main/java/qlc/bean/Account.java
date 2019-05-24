@@ -1,16 +1,7 @@
 package qlc.bean;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.util.List;
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.google.gson.Gson;
-
-import qlc.network.QlcClient;
-import qlc.network.QlcException;
-import qlc.utils.Constants;
 
 public class Account {
 	

@@ -2,7 +2,7 @@ package qlc.bean;
 
 import java.math.BigInteger;
 
-public class StateBlock {
+public final class StateBlock extends Block {
 	
 	private String type;
 	
@@ -11,6 +11,14 @@ public class StateBlock {
 	private String address;
 	
 	private BigInteger balance;
+	
+	private BigInteger vote;
+	
+	private BigInteger network;
+	
+	private BigInteger storage;
+	
+	private BigInteger oracle;
 	
 	private String previous;
 	
@@ -22,9 +30,13 @@ public class StateBlock {
 	
 	private String message;
 	
+	private String data;
+	
+	private Long povHeight;
+	
 	private Integer quota;
 	
-	private String timestamp;
+	private Long timestamp;
 	
 	private String extra;
 	
@@ -35,7 +47,7 @@ public class StateBlock {
 	private String signature;
 
 	public StateBlock(String type, String token, String address, BigInteger balance, String previous, String link,
-			String sender, String receiver, String message, String timestamp, String representative) {
+			String sender, String receiver, String message, Long timestamp, String representative) {
 		super();
 		this.type = type;
 		this.token = token;
@@ -104,6 +116,62 @@ public class StateBlock {
 	 */
 	public void setBalance(BigInteger balance) {
 		this.balance = balance;
+	}
+
+	/** 
+	 * @return vote
+	 */
+	public BigInteger getVote() {
+		return vote;
+	}
+
+	/** 
+	 * @param vote
+	 */
+	public void setVote(BigInteger vote) {
+		this.vote = vote;
+	}
+
+	/** 
+	 * @return network
+	 */
+	public BigInteger getNetwork() {
+		return network;
+	}
+
+	/** 
+	 * @param network
+	 */
+	public void setNetwork(BigInteger network) {
+		this.network = network;
+	}
+
+	/** 
+	 * @return storage
+	 */
+	public BigInteger getStorage() {
+		return storage;
+	}
+
+	/** 
+	 * @param storage
+	 */
+	public void setStorage(BigInteger storage) {
+		this.storage = storage;
+	}
+
+	/** 
+	 * @return oracle
+	 */
+	public BigInteger getOracle() {
+		return oracle;
+	}
+
+	/** 
+	 * @param oracle
+	 */
+	public void setOracle(BigInteger oracle) {
+		this.oracle = oracle;
 	}
 
 	/** 
@@ -177,6 +245,34 @@ public class StateBlock {
 	}
 
 	/** 
+	 * @return data
+	 */
+	public String getData() {
+		return data;
+	}
+
+	/** 
+	 * @param data
+	 */
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	/** 
+	 * @return povHeight
+	 */
+	public Long getPovHeight() {
+		return povHeight;
+	}
+
+	/** 
+	 * @param povHeight
+	 */
+	public void setPovHeight(Long povHeight) {
+		this.povHeight = povHeight;
+	}
+
+	/** 
 	 * @return quota
 	 */
 	public Integer getQuota() {
@@ -193,14 +289,14 @@ public class StateBlock {
 	/** 
 	 * @return timestamp
 	 */
-	public String getTimestamp() {
+	public Long getTimestamp() {
 		return timestamp;
 	}
 
 	/** 
 	 * @param timestamp
 	 */
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -259,5 +355,45 @@ public class StateBlock {
 	public void setSignature(String signature) {
 		this.signature = signature;
 	}
+
+	public static enum Type {
+		State,
+		Send,
+		Receive,
+		Change,
+		Open,
+		ContractReward,
+		ContractSend,
+		ContractRefund,
+		ContractError,
+		SmartContract,
+		Invalid;
+		public int getName(String type) {
+			switch (type.toLowerCase()) {
+			case "state":
+				return 0;
+			case "send":
+				return 1;
+			case "receive":
+				return 2;
+			case "change":
+				return 3;
+			case "open":
+				return 4;
+			case "contractreward":
+				return 5;
+			case "contractsend":
+				return 6;
+			case "contractrefund":
+				return 7;
+			case "contracterror":
+				return 8;
+			case "smartcontract":
+				return 9;
+			default:
+				return 10;
+			}
+		}
+	};
 
 }
