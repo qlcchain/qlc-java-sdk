@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.rfksystems.blake2b.Blake2b;
 
+import qlc.bean.Block;
 import qlc.bean.StateBlock;
 import qlc.network.QlcException;
 import qlc.utils.Constants;
@@ -26,7 +27,7 @@ public final class BlockMng {
     public static byte[] getHash(StateBlock block) throws QlcException {
 		
     	byte[] sources = new byte[1];
-        sources = Helper.bigInttoBytes(new BigInteger("4"));
+        sources = Helper.bigInttoBytes(new BigInteger(Block.Type.getIndex(block.getType())));
         
         sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getToken()));
         

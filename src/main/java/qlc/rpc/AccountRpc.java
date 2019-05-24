@@ -2,7 +2,6 @@ package qlc.rpc;
 
 import qlc.mng.AccountMng;
 import qlc.network.QlcException;
-import qlc.utils.Helper;
 
 public class AccountRpc {
 

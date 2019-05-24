@@ -43,10 +43,8 @@ public class LedgerTest {
     	JSONObject obj = new JSONObject();
     	obj.put("from", "qlc_3wpp343n1kfsd4r6zyhz3byx4x74hi98r6f1es4dw5xkyq8qdxcxodia4zbb");
     	obj.put("tokenName", "QLC");
-    	obj.put("to", "qlc_3hw8s1zubhxsykfsq5x7kh6eyibas9j3ga86ixd7pnqwes1cmt9mqqrngap4");
-    	obj.put("amount", "10000000000000");
-    	obj.put("sender", "1581111000442");
-    	obj.put("receiver", "18500001111");
+    	obj.put("to", "qlc_3pthb9as1ccmpem6y1byhwkju5gbc31jg8zr6mea946fozmg5c93x1c3yi3j");
+    	obj.put("amount", "1000000000000");
     	obj.put("message", "e4d85318e2898ee2ef3ac5baa3c6234a45cc84898756b64c08c3df48adce6492");
     	
     	JSONArray params = new JSONArray();
@@ -54,29 +52,34 @@ public class LedgerTest {
     	params.add("47627c7acb0ca36bd7bae78e8854d6d368e72aed75a1bb8b77a47fdba65e7163f2d608834049b958b04ff9ff0a7dd174a27c0e6c11a06644be0fb2f5cd75f55d");
     	
     	JSONObject json = LedgerMng.generateSendBlock(params);
-    	
     	System.out.println(json.toJSONString());
+
+		String url = "http://47.103.40.20:19735";
+		JSONArray aaaa = new JSONArray();
+		aaaa.add(json);
+		JSONObject result = LedgerRpc.process(url, aaaa);
+		System.out.println(result.toJSONString());
     }
     
     @Test
     public void blockHash() throws QlcException, IOException {
     	JSONObject obj = new JSONObject();
 
-		obj.put("type","Open");
-		obj.put("token","3339a985301a9ba7c35e1e15b78f306f9cdb03676436d013218099a9007714e1");
-		obj.put("address","qlc_3m8c8cn4jxhfu8x1qgrx19w6k8reckoywg9csi1ej8igriqt6hxuoqgrpr8d");
-		obj.put("balance","10000000000000");
-		obj.put("vote","0");
-		obj.put("network","0");
-		obj.put("storage","0");
-		obj.put("oracle","0");
-		obj.put("previous","0000000000000000000000000000000000000000000000000000000000000000");
-		obj.put("link","6b7c97f6de7e08e521babd8b0a7103aed23ccb42e4af9b044261e30edfe6f9db");
-		obj.put("message","0000000000000000000000000000000000000000000000000000000000000000");
-		obj.put("povHeight",0);
-		obj.put("timestamp",1558340700);
-		obj.put("extra","0000000000000000000000000000000000000000000000000000000000000000");
-		obj.put("representative","qlc_3mtg5qax7a9t6zfdjxp5shbshwx17n6x5ujqhjnec1c9ssrwarbjhncxqbrd");
+    	obj.put("type", "Send");
+    	obj.put("token", "a7e8fa30c063e96a489a47bc43909505bd86735da4a109dca28be936118a8582");
+    	obj.put("address", "qlc_3wpp343n1kfsd4r6zyhz3byx4x74hi98r6f1es4dw5xkyq8qdxcxodia4zbb");
+    	obj.put("balance", "5000000000000");
+    	obj.put("vote", 0);
+    	obj.put("network", 0);
+    	obj.put("storage", 0);
+    	obj.put("oracle", 0);
+    	obj.put("previous", "229f6b595803d130321cf89ef19b8ad4990b270e8ae895dec445dc729a4799de");
+    	obj.put("link", "db4f49d1902953b3264f013e7f251d8dc95041171bf824d883888dafe6e1a8e1");
+    	obj.put("message", "e4d85318e2898ee2ef3ac5baa3c6234a45cc84898756b64c08c3df48adce6492");
+    	obj.put("povHeight", 0);
+    	obj.put("timestamp", 1558689912);
+    	obj.put("extra", "0000000000000000000000000000000000000000000000000000000000000000");
+    	obj.put("representative", "qlc_3hw8s1zubhxsykfsq5x7kh6eyibas9j3ga86ixd7pnqwes1cmt9mqqrngap4");
     	
     	JSONArray params = new JSONArray();
     	params.add(obj);
@@ -170,6 +173,32 @@ public class LedgerTest {
         byte[] output = new byte[32];
         blake2b.digest(output, 0);
         System.out.println(Helper.byteToHexString(output));
+	}
+	
+	@Test
+	public void process() throws QlcException, IOException {
+
+		String url = "http://47.103.40.20:19735";
+		
+		JSONArray params = new JSONArray();
+		JSONObject obj = new JSONObject();
+		obj.put("type", "Send");
+		obj.put("token", "a7e8fa30c063e96a489a47bc43909505bd86735da4a109dca28be936118a8582");
+		obj.put("address", "qlc_3wpp343n1kfsd4r6zyhz3byx4x74hi98r6f1es4dw5xkyq8qdxcxodia4zbb");
+		obj.put("balance", "0");
+		obj.put("previous", "229f6b595803d130321cf89ef19b8ad4990b270e8ae895dec445dc729a4799de");
+		obj.put("link", "db4f49d1902953b3264f013e7f251d8dc95041171bf824d883888dafe6e1a8e1");
+		obj.put("message", "e4d85318e2898ee2ef3ac5baa3c6234a45cc84898756b64c08c3df48adce6492");
+		obj.put("quota", 0);
+		obj.put("timestamp", 1558682595);
+		obj.put("extra", "0000000000000000000000000000000000000000000000000000000000000000");
+		obj.put("representative", "qlc_3hw8s1zubhxsykfsq5x7kh6eyibas9j3ga86ixd7pnqwes1cmt9mqqrngap4");
+		obj.put("work", "3dd744f968045d2b");
+		obj.put("signature", "1bb0b9bb130d8301cfbf383eb2b056223d6853abc0f84637a7ceee60bd37e4feaa63f811eadbc8315405b6eb3c6d1bb5cf125ee1766e84d81833a3bb95b9e20b");
+		params.add(obj);
+		
+		JSONObject result = LedgerRpc.process(url, params);
+		System.out.println(result.toJSONString());
 	}
 	
 }

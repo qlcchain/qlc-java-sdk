@@ -19,16 +19,17 @@ public class AccountTest {
 	
 	@Test
 	public void keypairFromSeedTest() throws QlcException {
-		byte[] seed = SeedUtil.generateSeed();
-		System.out.println(Helper.byteToHexString(seed));
-		String result = AccountMng.keyPairFromSeed(Helper.byteToHexString(seed), 0);
+		/*byte[] seed = SeedUtil.generateSeed();
+		System.out.println(Helper.byteToHexString(seed));*/
+		String seed = "1234567890123456789012345678901234567890123456789012345678908892";
+		String result = AccountMng.keyPairFromSeed(seed, 0);
 		System.out.println(result);
 	}
 
 	@Test
 	public void publicKeyToAddress() {
 		try {
-			String result = AccountMng.publicKeyToAddress("db4f49d1902953b3264f013e7f251d8dc95041171bf824d883888dafe6e1a8e1");
+			String result = AccountMng.publicKeyToAddress("f2d608834049b958b04ff9ff0a7dd174a27c0e6c11a06644be0fb2f5cd75f55d");
 			System.out.println(result);
 		} catch (QlcException e) {
 			e.printStackTrace();

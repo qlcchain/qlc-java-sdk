@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -20,7 +21,23 @@ import qlc.utils.WorkUtil;
 
 public class LedgerMng {
 
-	// 
+	/**
+	 *  
+	 * @Description Return send block by send parameter and private key
+	 * @param params
+	 * 	send parameter for the block
+	 *	from: send address for the transaction
+	 *	to: receive address for the transaction
+	 *	tokenName: token name
+	 *	amount: transaction amount
+	 *	sender: optional, sms sender
+	 *	receiver: optional, sms receiver
+	 *	message: optional, sms message hash
+	 *	string: private key
+	 * @return JSONObject send block
+	 * @throws QlcException
+	 * @throws IOException 
+	 */
 	public static JSONObject generateSendBlock(JSONArray params) throws QlcException, IOException {
 		
 		JSONObject arrayOne = params.getJSONObject(0);
@@ -46,9 +63,18 @@ public class LedgerMng {
 		}
 		
 		// create send block
-		StateBlock block = new StateBlock(Constants.BLOCK_TYPE_OPEN, token.getTokenId(), from, tokenMate.getBalance().subtract(amount),
-				tokenMate.getHeader(), AccountMng.addressToPublicKey(to), Base64.encodeBase64String(sender.getBytes()), 
-				Base64.encodeBase64String(receiver.getBytes()), message, new Long(System.currentTimeMillis()/1000), tokenMate.getRepresentative());
+		StateBlock block = new StateBlock(Constants.BLOCK_TYPE_SEND, 
+				token.getTokenId(), 
+				from, 
+				tokenMate.getBalance().subtract(amount),
+				tokenMate.getHeader(), 
+				AccountMng.addressToPublicKey(to), 
+				(StringUtils.isNotBlank(sender)) ? Base64.encodeBase64String(sender.getBytes()) : null, 
+				(StringUtils.isNotBlank(receiver)) ? Base64.encodeBase64String(receiver.getBytes()) : null,
+				message, 
+				new Long(System.currentTimeMillis()/1000), 
+				tokenMate.getRepresentative());
+		//block.setPrevious("5750e81fd780589de9fab815295522d041cc4ae0c02c4cd256f1395eb255c23b");
 		block.setVote(new BigInteger("0"));
 		block.setNetwork(new BigInteger("0"));
 		block.setStorage(new BigInteger("0"));
@@ -56,8 +82,11 @@ public class LedgerMng {
 		block.setPovHeight(0l);
 		block.setExtra("0000000000000000000000000000000000000000000000000000000000000000");
 		
+		System.out.println(new Gson().toJson(block));
+		
 		// block hash
 		byte[] hash = BlockMng.getHash(block);
+		System.out.println(Helper.byteToHexString(hash));
 		
 		// set signature
 		String priKey = sendAddress.getPrivateKey().replace(sendAddress.getPublicKey(), "");

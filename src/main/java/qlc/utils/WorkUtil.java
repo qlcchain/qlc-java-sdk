@@ -18,7 +18,6 @@ public class WorkUtil {
     private WorkUtil() {
     }
 
-    
     public static String perform(String hash) {
         byte[] byteArray = Helper.hexStringToBytes(hash);
         return Stream.generate(() -> perform(byteArray))
