@@ -2,6 +2,7 @@ package qlc.rpc;
 
 import qlc.mng.AccountMng;
 import qlc.network.QlcException;
+import qlc.utils.Helper;
 
 public class AccountRpc {
 
@@ -16,8 +17,7 @@ public class AccountRpc {
      */
 	public static String create(String seed, Integer index) throws QlcException {
 		
-		AccountMng mng = new AccountMng();
-		return mng.keyPairFromSeed(seed, index);
+		return AccountMng.keyPairFromSeed(seed, index);
 		
 	}
 
@@ -29,8 +29,7 @@ public class AccountRpc {
      */
 	public static String publicKeyToAddress(String publicKey) throws QlcException {
 
-		AccountMng mng = new AccountMng();
-		return mng.publicKeyToAddress(publicKey);
+		return AccountMng.publicKeyToAddress(publicKey);
 		
 	}
 	
@@ -42,8 +41,7 @@ public class AccountRpc {
      */
 	public static String addressToPublicKey(String address) throws QlcException {
 
-		AccountMng mng = new AccountMng();
-		return mng.addressToPublicKey(address);
+		return AccountMng.addressToPublicKey(address);
 		
 	}
 

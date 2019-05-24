@@ -2,7 +2,6 @@ package test;
 
 import java.io.IOException;
 
-import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSONArray;
@@ -14,26 +13,22 @@ import qlc.mng.TokenMateMng;
 import qlc.network.QlcClient;
 import qlc.network.QlcException;
 import qlc.utils.Helper;
+import qlc.utils.SeedUtil;
 
 public class AccountTest {
 	
 	@Test
-	public void keypairFromSeedTest() {
-		try {
-			AccountMng mng = new AccountMng();
-			String seed = Helper.getSeed();
-			String result = mng.keyPairFromSeed(seed, null);
-			System.out.println(result);
-		} catch (QlcException e) {
-			e.printStackTrace();
-		}
+	public void keypairFromSeedTest() throws QlcException {
+		byte[] seed = SeedUtil.generateSeed();
+		System.out.println(Helper.byteToHexString(seed));
+		String result = AccountMng.keyPairFromSeed(Helper.byteToHexString(seed), 0);
+		System.out.println(result);
 	}
 
 	@Test
 	public void publicKeyToAddress() {
 		try {
-			AccountMng mng = new AccountMng();
-			String result = mng.publicKeyToAddress("c232e79adf63fe2a48fd7d18b000a79192aa01c328ab8931c905b8b37493d173");
+			String result = AccountMng.publicKeyToAddress("db4f49d1902953b3264f013e7f251d8dc95041171bf824d883888dafe6e1a8e1");
 			System.out.println(result);
 		} catch (QlcException e) {
 			e.printStackTrace();
@@ -43,12 +38,17 @@ public class AccountTest {
 	@Test
 	public void addressToPublicKey() {
 		try {
-			AccountMng mng = new AccountMng();
-			String result = mng.addressToPublicKey("qlc_371pkh5kkd1dn43cwxnbb1a4yg363rh9un9a13kkezbcppuicejxgixyyrrw");
+			String result = AccountMng.addressToPublicKey("qlc_3pthb9as1ccmpem6y1byhwkju5gbc31jg8zr6mea946fozmg5c93x1c3yi3j");
 			System.out.println(result);
 		} catch (QlcException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Test
+	public void isValidAddress() throws QlcException {
+		boolean result = AccountMng.isValidAddress("qlc_13117gep55b5xpa7nbaz71s1ykz36bfqc6bieyzycif3ceykg4dtsmo19867");
+		System.out.println(result);
 	}
 	
 	@Test
@@ -81,7 +81,7 @@ public class AccountTest {
 		QlcClient client = new QlcClient("http://47.103.40.20:19735");
 		JSONArray params = new JSONArray();
 		params.add("loger123");
-		params.add(Helper.getSeed());
+		params.add(Helper.byteToHexString(SeedUtil.generateSeed()));
 		
 		JSONObject result = client.call("wallet_newWallet", params);
 		System.out.println(result);
@@ -111,7 +111,7 @@ public class AccountTest {
 		//Token token = Token.getTokenByTokenName("QLC");
 		//System.out.println(token.getTokenId());
 		
-		TokenMate token = TokenMateMng.getTokenMate("a7e8fa30c063e96a489a47bc43909505bd86735da4a109dca28be936118a8582", "qlc_1oar3txydogd6xwxd4zmcex8iejh5dew7kby5xof671izjbbzmry7w6o7mzy");
+		TokenMate token = TokenMateMng.getTokenMate("a7e8fa30c063e96a489a47bc43909505bd86735da4a109dca28be936118a8582", "qlc_3wpp343n1kfsd4r6zyhz3byx4x74hi98r6f1es4dw5xkyq8qdxcxodia4zbb");
 		System.out.println(token.getBalance());
 	}
 	
@@ -126,11 +126,14 @@ public class AccountTest {
 		JSONObject result = client.call("ledger_accounts", params);
 		System.out.println(result);*/
 		
-		String a = "18500001111";
+		/*String a = "18500001111";
 		System.out.println(Base64.encodeBase64String(a.getBytes()));
 		
 		String str = "IjE4NTAwMDAxMTExIg==";
-		System.out.println(new String(Base64.decodeBase64(str.getBytes())));
+		System.out.println(new String(Base64.decodeBase64(str.getBytes())));*/
+		
+		String str = "00000000000000000000000000000000";
+		System.out.println(Helper.byteToHexString(str.getBytes()));
 		
 	}
 	
