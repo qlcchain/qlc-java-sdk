@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.alibaba.fastjson.JSONObject;
 
 import qlc.network.QlcException;
@@ -14,6 +12,7 @@ import qlc.utils.Checking;
 import qlc.utils.Constants;
 import qlc.utils.HashUtil;
 import qlc.utils.Helper;
+import qlc.utils.StringUtil;
 
 public final class AccountMng {
 	
@@ -50,7 +49,7 @@ public final class AccountMng {
 	 */
     public static String keyPairFromSeed(String seed, Integer index) throws QlcException {
     	
-    	if (StringUtils.isBlank(seed))
+    	if (StringUtil.isBlank(seed))
     		throw new QlcException(Constants.EXCEPTION_CODE_1001, Constants.EXCEPTION_MSG_1001);
     	byte[] seedByte = Helper.hexStringToBytes(seed);
     	index = (index==null) ? 0 : index;
@@ -120,7 +119,7 @@ public final class AccountMng {
  	 */
  	public static String addressToPublicKey(String address) throws QlcException {
  		
- 		if (StringUtils.isBlank(address))
+ 		if (StringUtil.isBlank(address))
  			throw new QlcException(Constants.EXCEPTION_CODE_1003, Constants.EXCEPTION_MSG_1003);
  		if (address.length()!=64 || !address.substring(0, 4).equals("qlc_"))
  			throw new QlcException(Constants.EXCEPTION_CODE_1004, Constants.EXCEPTION_MSG_1004);

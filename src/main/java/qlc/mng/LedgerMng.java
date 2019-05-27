@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.math.BigInteger;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -17,6 +16,7 @@ import qlc.bean.TokenMate;
 import qlc.network.QlcException;
 import qlc.utils.Constants;
 import qlc.utils.Helper;
+import qlc.utils.StringUtil;
 import qlc.utils.WorkUtil;
 
 public class LedgerMng {
@@ -69,12 +69,11 @@ public class LedgerMng {
 				tokenMate.getBalance().subtract(amount),
 				tokenMate.getHeader(), 
 				AccountMng.addressToPublicKey(to), 
-				(StringUtils.isNotBlank(sender)) ? Base64.encodeBase64String(sender.getBytes()) : null, 
-				(StringUtils.isNotBlank(receiver)) ? Base64.encodeBase64String(receiver.getBytes()) : null,
+				(StringUtil.isNotBlank(sender)) ? Base64.encodeBase64String(sender.getBytes()) : null, 
+				(StringUtil.isNotBlank(receiver)) ? Base64.encodeBase64String(receiver.getBytes()) : null,
 				message, 
 				new Long(System.currentTimeMillis()/1000), 
 				tokenMate.getRepresentative());
-		//block.setPrevious("5750e81fd780589de9fab815295522d041cc4ae0c02c4cd256f1395eb255c23b");
 		block.setVote(new BigInteger("0"));
 		block.setNetwork(new BigInteger("0"));
 		block.setStorage(new BigInteger("0"));
@@ -82,11 +81,8 @@ public class LedgerMng {
 		block.setPovHeight(0l);
 		block.setExtra("0000000000000000000000000000000000000000000000000000000000000000");
 		
-		System.out.println(new Gson().toJson(block));
-		
 		// block hash
 		byte[] hash = BlockMng.getHash(block);
-		System.out.println(Helper.byteToHexString(hash));
 		
 		// set signature
 		String priKey = sendAddress.getPrivateKey().replace(sendAddress.getPublicKey(), "");
@@ -97,7 +93,7 @@ public class LedgerMng {
 		block.setSignature(Helper.byteToHexString(signature));
 		
 		// set work
-		String work = WorkUtil.perform(BlockMng.getRoot(block));
+		String work = WorkUtil.generateWork(Helper.hexStringToBytes(BlockMng.getRoot(block)));
 		block.setWork(work);
 		
 		return JSONObject.parseObject(new Gson().toJson(block));

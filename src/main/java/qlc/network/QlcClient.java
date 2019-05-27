@@ -41,7 +41,6 @@ public class QlcClient {
 		request.put("id", UUID.randomUUID().toString().replace("-", ""));
 		request.put("method", method);
 		request.put("params", params);
-		System.out.println(request.toJSONString());
 		return request;
 		
 	}

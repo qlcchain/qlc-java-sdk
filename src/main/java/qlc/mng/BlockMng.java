@@ -1,17 +1,14 @@
 package qlc.mng;
 
 import java.math.BigInteger;
-import java.util.stream.Stream;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.rfksystems.blake2b.Blake2b;
 
 import qlc.bean.Block;
 import qlc.bean.StateBlock;
 import qlc.network.QlcException;
 import qlc.utils.Constants;
+import qlc.utils.HashUtil;
 import qlc.utils.Helper;
+import qlc.utils.StringUtil;
 
 public final class BlockMng {
 	
@@ -52,10 +49,10 @@ public final class BlockMng {
 
         sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getLink()));
 
-        if (StringUtils.isNotBlank(block.getSender()))
+        if (StringUtil.isNotBlank(block.getSender()))
         	sources = Helper.byteMerger(sources, block.getSender().getBytes());
 
-        if (StringUtils.isNotBlank(block.getReceiver()))
+        if (StringUtil.isNotBlank(block.getReceiver()))
         	sources = Helper.byteMerger(sources, block.getReceiver().getBytes());
 
         sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getMessage()));
@@ -68,10 +65,7 @@ public final class BlockMng {
 
         sources = Helper.byteMerger(sources, Helper.hexStringToBytes(AccountMng.addressToPublicKey(block.getRepresentative())));
         
-        Blake2b blake2b = new Blake2b(null, 32, null, null);
-        Stream.of(sources).forEach(byteArray -> blake2b.update(byteArray, 0, byteArray.length));
-        byte[] output = new byte[32];
-        blake2b.digest(output, 0);
+        byte[] output = HashUtil.digest(32, sources);
         return output;
     }
 
