@@ -20,7 +20,7 @@ public class TokenMng {
 	 * @throws IOException 
 	 * @return Token  
 	 */
-	public static Token getTokenByTokenName(QlcClient client, String tokenName) throws QlcException, IOException {
+	public static Token getTokenByTokenName(QlcClient client, String tokenName) throws IOException {
 		
 		JSONArray params = new JSONArray();
 		params.add(tokenName);

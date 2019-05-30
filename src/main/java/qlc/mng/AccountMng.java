@@ -47,9 +47,8 @@ public final class AccountMng {
 	 * @return JSONObject  
 	 * 	privKey: private key for the new account
 	 *	pubKey: public key for the new account
-	 * @throws QlcException 
 	 */
-    public static JSONObject keyPairFromSeed(byte[] seed, Integer index) throws QlcException {
+    public static JSONObject keyPairFromSeed(byte[] seed, Integer index) {
     	
     	if (seed == null)
     		throw new QlcException(Constants.EXCEPTION_CODE_1001, Constants.EXCEPTION_MSG_1001);
@@ -74,9 +73,8 @@ public final class AccountMng {
 	 * @Description Create new accounts randomly
 	 * @param numbers:number of accounts, default is 10
 	 * @return JSONArray:account info
-	 * @throws QlcException 
 	 */
-    public static JSONArray newAccounts(Integer numbers) throws QlcException {
+    public static JSONArray newAccounts(Integer numbers) {
     	
     	numbers = (numbers==null) ? 10: numbers;
     	
@@ -101,9 +99,8 @@ public final class AccountMng {
      * @Description Return account address by public key
      * @param publicKey:public key
      * @return String account address
-     * @throws QlcException 
      */
- 	public static String publicKeyToAddress(byte[] publicKey) throws QlcException {
+ 	public static String publicKeyToAddress(byte[] publicKey) {
  		
  		if (publicKey == null)
  			throw new QlcException(Constants.EXCEPTION_CODE_1002, Constants.EXCEPTION_MSG_1002);
@@ -141,9 +138,8 @@ public final class AccountMng {
  	 * @Description Return public key for account address
  	 * @param address:account address
  	 * @return String public key
- 	 * @throws QlcException 
  	 */
- 	public static String addressToPublicKey(String address) throws QlcException {
+ 	public static String addressToPublicKey(String address) {
  		
  		if (StringUtil.isBlank(address))
  			throw new QlcException(Constants.EXCEPTION_CODE_1003, Constants.EXCEPTION_MSG_1003);
@@ -192,9 +188,8 @@ public final class AccountMng {
  	 * @Description Returns whether the address is valid or not
  	 * @param address:account address
  	 * @return boolean if valid , return true, or return false
- 	 * @throws QlcException 
  	 */
-    public static boolean isValidAddress(String address) throws QlcException {
+    public static boolean isValidAddress(String address) {
 
     	String[] parts = address.split("_");
         if (parts.length != 2) {

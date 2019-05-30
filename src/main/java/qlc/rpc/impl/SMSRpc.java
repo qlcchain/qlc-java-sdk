@@ -22,7 +22,7 @@ public class SMSRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject phoneBlocks(JSONArray params) throws QlcException, IOException {
+    public JSONObject phoneBlocks(JSONArray params) throws IOException {
         return client.call("sms_phoneBlocks", params);
     }
 
@@ -33,7 +33,7 @@ public class SMSRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject messageBlocks(JSONArray params) throws QlcException, IOException {
+    public JSONObject messageBlocks(JSONArray params) throws IOException {
         return client.call("sms_messageBlocks", params);
     }
 
@@ -44,7 +44,7 @@ public class SMSRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject messageHash(JSONArray params) throws QlcException, IOException {
+    public JSONObject messageHash(JSONArray params) throws IOException {
         return client.call("sms_messageHash", params);
     }
 
@@ -55,7 +55,7 @@ public class SMSRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject messageStore(JSONArray params) throws QlcException, IOException {
+    public JSONObject messageStore(JSONArray params) throws IOException {
         return client.call("sms_messageStore", params);
     }
 

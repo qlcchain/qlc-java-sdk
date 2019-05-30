@@ -22,7 +22,7 @@ public class MinitageRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject getMintageData(JSONArray params) throws QlcException, IOException {
+    public JSONObject getMintageData(JSONArray params) throws IOException {
         return client.call("mintage_getMintageData", params);
     }
 
@@ -33,7 +33,7 @@ public class MinitageRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject getMintageBlock(JSONArray params) throws QlcException, IOException {
+    public JSONObject getMintageBlock(JSONArray params) throws IOException {
         return client.call("mintage_getMintageBlock", params);
     }
 
@@ -44,7 +44,7 @@ public class MinitageRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject getRewardBlock(JSONArray params) throws QlcException, IOException {
+    public JSONObject getRewardBlock(JSONArray params) throws IOException {
         return client.call("mintage_getRewardBlock", params);
     }
 

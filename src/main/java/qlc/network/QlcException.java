@@ -1,6 +1,6 @@
 package qlc.network;
 
-public class QlcException extends Exception {
+public class QlcException extends RuntimeException {
 	
 	private static final long serialVersionUID = -7742545555643041585L;
 	

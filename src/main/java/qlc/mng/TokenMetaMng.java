@@ -10,12 +10,11 @@ import com.google.gson.Gson;
 import qlc.bean.Account;
 import qlc.bean.TokenMeta;
 import qlc.network.QlcClient;
-import qlc.network.QlcException;
 
 public class TokenMetaMng {
 
 	// return account`s token meta info by address and token hash
-	public static TokenMeta getTokenMeta(QlcClient client, String tokenHash, String address) throws QlcException, IOException {
+	public static TokenMeta getTokenMeta(QlcClient client, String tokenHash, String address) throws IOException {
 		
 		JSONArray params = new JSONArray();
 		params.add(address);
@@ -43,7 +42,7 @@ public class TokenMetaMng {
 	}
 
 	// return account info by address
-	public static Account getAccountMeta(QlcClient client, String address) throws QlcException, IOException {
+	public static Account getAccountMeta(QlcClient client, String address) throws IOException {
 		
 		JSONArray params = new JSONArray();
 		params.add(address);

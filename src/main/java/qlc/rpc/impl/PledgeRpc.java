@@ -25,7 +25,7 @@ public class PledgeRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject searchPledgeInfo(JSONArray params) throws QlcException, IOException {
+    public JSONObject searchPledgeInfo(JSONArray params) throws IOException {
         return client.call("pledge_searchPledgeInfo", params);
     }
 
@@ -37,7 +37,7 @@ public class PledgeRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject pledge_searchAllPledgeInfo(JSONArray params) throws QlcException, IOException {
+    public JSONObject pledge_searchAllPledgeInfo(JSONArray params) throws IOException {
         return client.call("pledge_searchAllPledgeInfo", params);
     }
     

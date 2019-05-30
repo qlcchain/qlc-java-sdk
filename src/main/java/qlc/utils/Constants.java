@@ -23,6 +23,12 @@ public class Constants {
 	public static final int EXCEPTION_CODE_1005 = 1005;	
 	public static final String EXCEPTION_MSG_1005 = "Signature verification failed";
 	
+	public static final int EXCEPTION_CODE_1006 = 1006;	
+	public static final String EXCEPTION_MSG_1006 = "Seed generation not supported";
+	
+	public static final int EXCEPTION_CODE_1007 = 1007;
+	public static final String EXCEPTION_MSG_1007 = "Mnemonics can`t be empty";
+	
 	
 	public static final int EXCEPTION_BLOCK_CODE_2000 = 2000;	
 	public static final String EXCEPTION_BLOCK_MSG_2000 = "Parameter error for send block";

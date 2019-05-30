@@ -23,7 +23,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountBlocksCount(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountBlocksCount(JSONArray params) throws IOException {
 		return client.call("ledger_accountBlocksCount", params);
 	}
 
@@ -34,7 +34,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountHistoryTopn(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountHistoryTopn(JSONArray params) throws IOException {
 		return client.call("ledger_accountHistoryTopn", params);
 	}
 
@@ -45,7 +45,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountInfo(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountInfo(JSONArray params) throws IOException {
 		return client.call("ledger_accountInfo", params);
 	}
 
@@ -56,7 +56,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountRepresentative(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountRepresentative(JSONArray params) throws IOException {
 		return client.call("ledger_accountRepresentative", params);
 	}
 
@@ -67,7 +67,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountVotingWeight(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountVotingWeight(JSONArray params) throws IOException {
 		return client.call("ledger_accountVotingWeight", params);
 	}
 
@@ -80,7 +80,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accounts(JSONArray params) throws QlcException, IOException {
+	public JSONObject accounts(JSONArray params) throws IOException {
 		return client.call("ledger_accounts", params);
 	}
 
@@ -91,7 +91,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountsBalance(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountsBalance(JSONArray params) throws IOException {
 		return client.call("ledger_accountsBalance", params);
 	}
 
@@ -102,7 +102,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountsFrontiers(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountsFrontiers(JSONArray params) throws IOException {
 		return client.call("ledger_accountsFrontiers", params);
 	}
 
@@ -120,7 +120,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountsPending(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountsPending(JSONArray params) throws IOException {
 		return client.call("ledger_accountsPending", params);
 	}
 
@@ -131,7 +131,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject accountsCount(JSONArray params) throws QlcException, IOException {
+	public JSONObject accountsCount(JSONArray params) throws IOException {
 		return client.call("ledger_accountsCount", params);
 	}
 
@@ -142,7 +142,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject blockAccount(JSONArray params) throws QlcException, IOException {
+	public JSONObject blockAccount(JSONArray params) throws IOException {
 		return client.call("ledger_blockAccount", params);
 	}
 
@@ -154,7 +154,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject blockHash(JSONArray params) throws QlcException, IOException {
+	public JSONObject blockHash(JSONArray params) throws IOException {
 		return client.call("ledger_blockHash", params);
 	}
 
@@ -167,7 +167,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject blocks(JSONArray params) throws QlcException, IOException {
+	public JSONObject blocks(JSONArray params) throws IOException {
 		return client.call("ledger_blocks", params);
 	}
 
@@ -181,7 +181,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject blocksCount(JSONArray params) throws QlcException, IOException {
+	public JSONObject blocksCount(JSONArray params) throws IOException {
 		return client.call("ledger_blocksCount", params);
 	}
 
@@ -192,7 +192,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject blocksCountByType(JSONArray params) throws QlcException, IOException {
+	public JSONObject blocksCountByType(JSONArray params) throws IOException {
 		return client.call("ledger_blocksCountByType", params);
 	}
 
@@ -203,7 +203,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject blocksInfo(JSONArray params) throws QlcException, IOException {
+	public JSONObject blocksInfo(JSONArray params) throws IOException {
 		return client.call("ledger_blocksInfo", params);
 	}
 
@@ -216,7 +216,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject chain(JSONArray params) throws QlcException, IOException {
+	public JSONObject chain(JSONArray params) throws IOException {
 		return client.call("ledger_chain", params);
 	}
 
@@ -227,7 +227,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject delegators(JSONArray params) throws QlcException, IOException {
+	public JSONObject delegators(JSONArray params) throws IOException {
 		return client.call("ledger_delegators", params);
 	}
 
@@ -238,7 +238,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject delegatorsCount(JSONArray params) throws QlcException, IOException {
+	public JSONObject delegatorsCount(JSONArray params) throws IOException {
 		return client.call("ledger_delegatorsCount", params);
 	}
 
@@ -257,7 +257,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject generateSendBlock(JSONArray params) throws QlcException, IOException {
+	public JSONObject generateSendBlock(JSONArray params) throws IOException {
 		return client.call("ledger_generateSendBlock", params);
 	}
 
@@ -269,7 +269,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject generateReceiveBlock(JSONArray params) throws QlcException, IOException {
+	public JSONObject generateReceiveBlock(JSONArray params) throws IOException {
 		return client.call("ledger_generateReceiveBlock", params);
 	}
 
@@ -283,7 +283,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject generateChangeBlock(JSONArray params) throws QlcException, IOException {
+	public JSONObject generateChangeBlock(JSONArray params) throws IOException {
 		return client.call("ledger_generateChangeBlock", params);
 	}
 
@@ -294,7 +294,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject process(JSONArray params) throws QlcException, IOException {
+	public JSONObject process(JSONArray params) throws IOException {
 		return client.call("ledger_process", params);
 	}
 
@@ -305,7 +305,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject representatives(JSONArray params) throws QlcException, IOException {
+	public JSONObject representatives(JSONArray params) throws IOException {
 		return client.call("ledger_representatives", params);
 	}
 
@@ -316,7 +316,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject tokens(JSONArray params) throws QlcException, IOException {
+	public JSONObject tokens(JSONArray params) throws IOException {
 		return client.call("ledger_tokens", params);
 	}
 
@@ -327,7 +327,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject tokenInfoById(JSONArray params) throws QlcException, IOException {
+	public JSONObject tokenInfoById(JSONArray params) throws IOException {
 		return client.call("ledger_tokenInfoById", params);
 	}
 
@@ -338,7 +338,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject tokenInfoByName(JSONArray params) throws QlcException, IOException {
+	public JSONObject tokenInfoByName(JSONArray params) throws IOException {
 		return client.call("ledger_tokenInfoByName", params);
 	}
 
@@ -350,7 +350,7 @@ public class LedgerRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException
 	 */
-	public JSONObject transactionsCount(JSONArray params) throws QlcException, IOException {
+	public JSONObject transactionsCount(JSONArray params) throws IOException {
 		return client.call("ledger_transactionsCount", params);
 	}
 

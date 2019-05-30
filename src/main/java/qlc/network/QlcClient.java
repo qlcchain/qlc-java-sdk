@@ -25,7 +25,7 @@ public class QlcClient {
 		this.url = new URL(url);
 	}
 	
-	public JSONObject call(String method, JSONArray params) throws QlcException, IOException {
+	public JSONObject call(String method, JSONArray params) throws IOException {
 		
 		JSONObject response = send(makeRequest(method, params));
 		if (response.containsKey("result") || response.containsKey("error"))
@@ -45,7 +45,7 @@ public class QlcClient {
 		
 	}
 	
-	private JSONObject send(JSONObject message) throws QlcException {
+	private JSONObject send(JSONObject message) {
 		
 		PostMethod method = new PostMethod(url.toString());
 
