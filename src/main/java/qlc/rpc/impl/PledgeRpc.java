@@ -1,16 +1,22 @@
-package qlc.rpc;
+package qlc.rpc.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import qlc.network.QlcClient;
 import qlc.network.QlcException;
+import qlc.rpc.QlcRpc;
 
 import java.io.IOException;
 
-public class PledgeRpc {
-    /**
+public class PledgeRpc extends QlcRpc {
+	
+    public PledgeRpc(QlcClient client) {
+		super(client);
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Return pledge data by pledge parameters ，if there are multiple identical pledge in the query result, it will be returned in time order
-     * @param url
      * @param params pledgeParams: pledge parameters
      *               beneficial：beneficial account
      *               amount：amount of pledge
@@ -19,22 +25,21 @@ public class PledgeRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public static JSONObject searchPledgeInfo(String url, JSONArray params) throws QlcException, IOException {
-        QlcClient client = new QlcClient(url);
+    public JSONObject searchPledgeInfo(JSONArray params) throws QlcException, IOException {
         return client.call("pledge_searchPledgeInfo", params);
     }
 
 
     /**
      * Return all pledge info
-     * @param url
      * @param params pledgeParams: no
      * @return
      * @throws QlcException
      * @throws IOException
      */
-    public static JSONObject pledge_searchAllPledgeInfo(String url, JSONArray params) throws QlcException, IOException {
-        QlcClient client = new QlcClient(url);
+    public JSONObject pledge_searchAllPledgeInfo(JSONArray params) throws QlcException, IOException {
         return client.call("pledge_searchAllPledgeInfo", params);
     }
+    
 }
+

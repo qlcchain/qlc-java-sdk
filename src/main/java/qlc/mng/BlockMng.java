@@ -12,7 +12,13 @@ import qlc.utils.StringUtil;
 
 public final class BlockMng {
 	
-	// get block root
+	/**
+	 * 
+	 * @Description get block root
+	 * @param block
+	 * @throws QlcException 
+	 * @return String  
+	 */
 	public static String getRoot(StateBlock block) throws QlcException {
 		if (block.getType().equals(Constants.BLOCK_TYPE_OPEN)) {
 			return AccountMng.addressToPublicKey(block.getAddress());
@@ -20,7 +26,13 @@ public final class BlockMng {
 			return block.getPrevious();
 	}
 	
-	// get block hash
+	/**
+	 * 
+	 * @Description get block hash
+	 * @param block
+	 * @throws QlcException 
+	 * @return byte[]:block hash
+	 */
     public static byte[] getHash(StateBlock block) throws QlcException {
 		
     	byte[] sources = new byte[1];
@@ -30,20 +42,19 @@ public final class BlockMng {
         
         sources = Helper.byteMerger(sources, Helper.hexStringToBytes(AccountMng.addressToPublicKey(block.getAddress())));
         
-        byte[] balance = Helper.bigInttoBytes(block.getBalance());
-        sources = Helper.byteMerger(sources, balance);
+        sources = Helper.byteMerger(sources, Helper.bigInttoBytes(block.getBalance()));
 
-        byte[] vote = Helper.bigInttoBytes(block.getVote());
-        sources = Helper.byteMerger(sources, vote);
+        if (block.getVote() != null)
+	        sources = Helper.byteMerger(sources, Helper.bigInttoBytes(block.getVote()));
 
-        byte[] network = Helper.bigInttoBytes(block.getNetwork());
-        sources = Helper.byteMerger(sources, network);
+        if (block.getNetwork() != null) 
+	        sources = Helper.byteMerger(sources, Helper.bigInttoBytes(block.getNetwork()));
 
-        byte[] storage = Helper.bigInttoBytes(block.getStorage());
-        sources = Helper.byteMerger(sources, storage);
+        if (block.getStorage() != null)
+	        sources = Helper.byteMerger(sources, Helper.bigInttoBytes(block.getStorage()));
 
-        byte[] oracle = Helper.bigInttoBytes(block.getOracle());
-        sources = Helper.byteMerger(sources, oracle);
+        if (block.getOracle() != null)
+	        sources = Helper.byteMerger(sources, Helper.bigInttoBytes(block.getOracle()));
 
         sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getPrevious()));
 
@@ -55,13 +66,16 @@ public final class BlockMng {
         if (StringUtil.isNotBlank(block.getReceiver()))
         	sources = Helper.byteMerger(sources, block.getReceiver().getBytes());
 
-        sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getMessage()));
+        if (StringUtil.isNotBlank(block.getMessage()))
+        	sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getMessage()));
         
         sources = Helper.byteMerger(sources, Helper.LongToBytes(block.getTimestamp()));
         
-        sources = Helper.byteMerger(sources, Helper.LongToBytes(block.getPovHeight()));
+        if (block.getPovHeight() != null)
+        	sources = Helper.byteMerger(sources, Helper.LongToBytes(block.getPovHeight()));
 
-        sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getExtra()));
+        if (StringUtil.isNotBlank(block.getExtra()))
+        	sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getExtra()));
 
         sources = Helper.byteMerger(sources, Helper.hexStringToBytes(AccountMng.addressToPublicKey(block.getRepresentative())));
         
