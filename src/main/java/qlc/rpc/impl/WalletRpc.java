@@ -23,7 +23,7 @@ public class WalletRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject getBalances(JSONArray params) throws QlcException, IOException {
+    public JSONObject getBalances(JSONArray params) throws IOException {
         return client.call("wallet_getBalances", params);
     }
 
@@ -35,7 +35,7 @@ public class WalletRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject getRawKey(JSONArray params) throws QlcException, IOException {
+    public JSONObject getRawKey(JSONArray params) throws IOException {
         return client.call("wallet_getRawKey", params);
     }
 
@@ -46,7 +46,7 @@ public class WalletRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject newSeed(JSONArray params) throws QlcException, IOException {
+    public JSONObject newSeed(JSONArray params) throws IOException {
         return client.call("wallet_newSeed", params);
     }
 
@@ -58,7 +58,7 @@ public class WalletRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject newWallet(JSONArray params) throws QlcException, IOException {
+    public JSONObject newWallet(JSONArray params) throws IOException {
         return client.call("wallet_newWallet", params);
     }
 
@@ -72,7 +72,7 @@ public class WalletRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject changePassword(JSONArray params) throws QlcException, IOException {
+    public JSONObject changePassword(JSONArray params) throws IOException {
         return client.call("wallet_changePassword", params);
     }
 

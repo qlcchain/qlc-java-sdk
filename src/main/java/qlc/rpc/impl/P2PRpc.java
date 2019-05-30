@@ -22,7 +22,7 @@ public class P2PRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject onlineRepresentatives(JSONArray params) throws QlcException, IOException {
+    public JSONObject onlineRepresentatives(JSONArray params) throws IOException {
         return client.call("net_onlineRepresentatives", params);
     }
     

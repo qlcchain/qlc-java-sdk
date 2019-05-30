@@ -42,7 +42,7 @@ public class TransactionMng {
 	 */
 	public static JSONObject sendBlock(QlcClient client, String from, String tokenName, String to, 
 			BigInteger amount, String sender, String receiver, String message, 
-			byte[] privateKey) throws QlcException, IOException {
+			byte[] privateKey) throws IOException {
 		
 		// token info
 		Token token = TokenMng.getTokenByTokenName(client, tokenName);
@@ -121,7 +121,7 @@ public class TransactionMng {
 	 * @throws IOException 
 	 * @return JSONObject  
 	 */
-	public static JSONObject receiveBlock(QlcClient client, StateBlock sendBlock, byte[] privateKey) throws QlcException, IOException {
+	public static JSONObject receiveBlock(QlcClient client, StateBlock sendBlock, byte[] privateKey) throws IOException {
 		
 		// the block hash
 		byte[] sendBlockHash = BlockMng.getHash(sendBlock);
@@ -237,7 +237,7 @@ public class TransactionMng {
 	 * @throws IOException 
 	 * @throws QlcException 
 	 */
-	public static JSONObject changeBlock(QlcClient client, String address, String representative, String chainTokenHash, byte[] privateKey) throws QlcException, IOException {
+	public static JSONObject changeBlock(QlcClient client, String address, String representative, String chainTokenHash, byte[] privateKey) throws IOException {
 		
 		// check representative
 		Account representativeInfo = TokenMetaMng.getAccountMeta(client, representative);

@@ -26,7 +26,7 @@ public class LedgerMng {
      * @throws IOException 
      * @return StateBlock  
      */
-    public static StateBlock getBlockInfoByHash(QlcClient client, byte[] blockHash) throws QlcException, IOException {
+    public static StateBlock getBlockInfoByHash(QlcClient client, byte[] blockHash) throws IOException {
     	
     	if (blockHash == null)
     		return null;
@@ -54,7 +54,7 @@ public class LedgerMng {
      * @throws IOException 
      * @return Pending  
      */
-    public static Pending getAccountPending(QlcClient client, String address) throws QlcException, IOException {
+    public static Pending getAccountPending(QlcClient client, String address) throws IOException {
     	
     	if (StringUtil.isBlank(address))
     		return null;

@@ -19,7 +19,7 @@ public final class BlockMng {
 	 * @throws QlcException 
 	 * @return String  
 	 */
-	public static String getRoot(StateBlock block) throws QlcException {
+	public static String getRoot(StateBlock block) {
 		if (block.getType().equals(Constants.BLOCK_TYPE_OPEN)) {
 			return AccountMng.addressToPublicKey(block.getAddress());
 		} else
@@ -33,7 +33,7 @@ public final class BlockMng {
 	 * @throws QlcException 
 	 * @return byte[]:block hash
 	 */
-    public static byte[] getHash(StateBlock block) throws QlcException {
+    public static byte[] getHash(StateBlock block) {
 		
     	byte[] sources = new byte[1];
         sources = Helper.bigInttoBytes(new BigInteger(Block.Type.getIndex(block.getType())));

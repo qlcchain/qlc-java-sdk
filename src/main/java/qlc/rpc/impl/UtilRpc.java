@@ -23,7 +23,7 @@ public class UtilRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject decrypt(JSONArray params) throws QlcException, IOException {
+    public JSONObject decrypt(JSONArray params) throws IOException {
         return client.call("util_decrypt", params);
     }
 
@@ -35,7 +35,7 @@ public class UtilRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject encrypt(JSONArray params) throws QlcException, IOException {
+    public JSONObject encrypt(JSONArray params) throws IOException {
         return client.call("util_encrypt", params);
     }
 
@@ -48,7 +48,7 @@ public class UtilRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject rawToBalance(JSONArray params) throws QlcException, IOException {
+    public JSONObject rawToBalance(JSONArray params) throws IOException {
         return client.call("util_rawToBalance", params);
     }
 
@@ -61,7 +61,7 @@ public class UtilRpc extends QlcRpc {
      * @throws QlcException
      * @throws IOException
      */
-    public JSONObject balanceToRaw(JSONArray params) throws QlcException, IOException {
+    public JSONObject balanceToRaw(JSONArray params) throws IOException {
         return client.call("util_balanceToRaw", params);
     }
 

@@ -40,7 +40,7 @@ public class TransactionRpc extends QlcRpc {
 	 * @throws QlcException
 	 * @throws IOException 
 	 */
-	public JSONObject generateSendBlock(JSONArray params) throws QlcException, IOException {
+	public JSONObject generateSendBlock(JSONArray params) throws IOException {
 		
 		JSONObject arrayOne = params.getJSONObject(0);
 		String from = arrayOne.getString("from");
@@ -76,7 +76,7 @@ public class TransactionRpc extends QlcRpc {
 	 * @throws IOException 
 	 * @return JSONObject  
 	 */
-	public JSONObject generateReceiveBlock(JSONArray params) throws QlcException, IOException {
+	public JSONObject generateReceiveBlock(JSONArray params) throws IOException {
 		
 		JSONObject arrayOne = params.getJSONObject(0);
 		StateBlock sendBlock = new Gson().fromJson(arrayOne.toJSONString(), StateBlock.class);
@@ -112,7 +112,7 @@ public class TransactionRpc extends QlcRpc {
 	 * @throws IOException 
 	 * @return JSONObject  
 	 */
-	public JSONObject generateChangeBlock(JSONArray params) throws QlcException, IOException {
+	public JSONObject generateChangeBlock(JSONArray params) throws IOException {
 
 		String address = params.getString(0);
 		String representative = params.getString(1);

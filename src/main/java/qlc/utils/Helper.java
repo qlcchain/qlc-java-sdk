@@ -1,10 +1,16 @@
 package qlc.utils;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 
 public class Helper {
 	
     private static final char[] HEX_ARRAY = "0123456789abcdef".toCharArray();
+
+    public static byte[] wipe(byte[] b) {
+        Arrays.fill(b, (byte) 0);
+        return b;
+    }
 	
     public static byte[] reverse(byte[] value) {
 
