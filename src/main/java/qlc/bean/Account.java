@@ -19,7 +19,7 @@ public class Account {
 	
 	private	String representative;					// representative address of the account
 	
-	private List<TokenMate> tokens;					// each token info for the account
+	private List<TokenMeta> tokens;					// each token info for the account
 	
 	/** 
 	 * @return account
@@ -122,14 +122,14 @@ public class Account {
 	/** 
 	 * @return tokens
 	 */
-	public List<TokenMate> getTokens() {
+	public List<TokenMeta> getTokens() {
 		return tokens;
 	}
 
 	/** 
 	 * @param tokens
 	 */
-	public void setTokens(List<TokenMate> tokens) {
+	public void setTokens(List<TokenMeta> tokens) {
 		this.tokens = tokens;
 	}
 	

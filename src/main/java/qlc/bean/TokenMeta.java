@@ -3,7 +3,7 @@ package qlc.bean;
 import java.math.BigInteger;
 
 // 
-public class TokenMate {
+public class TokenMeta {
 		
 	private String type;					// token hash
 	

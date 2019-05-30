@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import qlc.network.QlcException;
@@ -12,6 +13,7 @@ import qlc.utils.Checking;
 import qlc.utils.Constants;
 import qlc.utils.HashUtil;
 import qlc.utils.Helper;
+import qlc.utils.SeedUtil;
 import qlc.utils.StringUtil;
 
 public final class AccountMng {
@@ -42,22 +44,21 @@ public final class AccountMng {
 	 * @Description Create a new account by seed and index
 	 * @param seed
 	 * @param index:optional, index for account, if not set, default value is 0
-	 * @return String  
+	 * @return JSONObject  
 	 * 	privKey: private key for the new account
 	 *	pubKey: public key for the new account
 	 * @throws QlcException 
 	 */
-    public static String keyPairFromSeed(String seed, Integer index) throws QlcException {
+    public static JSONObject keyPairFromSeed(byte[] seed, Integer index) throws QlcException {
     	
-    	if (StringUtil.isBlank(seed))
+    	if (seed == null)
     		throw new QlcException(Constants.EXCEPTION_CODE_1001, Constants.EXCEPTION_MSG_1001);
-    	byte[] seedByte = Helper.hexStringToBytes(seed);
     	index = (index==null) ? 0 : index;
     	
-    	Checking.checkSeed(seedByte);
+    	Checking.checkSeed(seed);
     	Checking.check(index<0, "Invalid index " + index);
 
-		byte[] privateKey = HashUtil.digest256(seedByte, ByteBuffer.allocate(4).putInt(index).array());
+		byte[] privateKey = HashUtil.digest256(seed, ByteBuffer.allocate(4).putInt(index).array());
 		byte[] publicKey = WalletMng.createPublicKey(privateKey);
 		Checking.checkKey(publicKey);
 
@@ -65,7 +66,34 @@ public final class AccountMng {
 		json.put("privKey", Helper.byteToHexString(privateKey) + Helper.byteToHexString(publicKey));
 		json.put("pubKey", Helper.byteToHexString(publicKey));
 		
-		return json.toJSONString();
+		return json;
+    }
+	
+	/**
+	 * 
+	 * @Description Create new accounts randomly
+	 * @param numbers:number of accounts, default is 10
+	 * @return JSONArray:account info
+	 * @throws QlcException 
+	 */
+    public static JSONArray newAccounts(Integer numbers) throws QlcException {
+    	
+    	numbers = (numbers==null) ? 10: numbers;
+    	
+    	JSONArray array = new JSONArray();
+    	JSONObject obj = null;
+    	byte[] seed = null;
+    	for (int i=0; i<numbers; i++) {
+    		seed = SeedUtil.generateSeed();
+    		obj = keyPairFromSeed(seed, 0);
+    		obj.put("seed", Helper.byteToHexString(seed));
+    		array.add(obj);
+    		
+    		obj = null;
+    		seed = null;
+    	}
+    	
+		return array;
     }
     
     /**
@@ -75,16 +103,14 @@ public final class AccountMng {
      * @return String account address
      * @throws QlcException 
      */
- 	public static String publicKeyToAddress(String publicKey) throws QlcException {
+ 	public static String publicKeyToAddress(byte[] publicKey) throws QlcException {
  		
  		if (publicKey == null)
  			throw new QlcException(Constants.EXCEPTION_CODE_1002, Constants.EXCEPTION_MSG_1002);
  		
  		intMap();
  		
- 		
- 		byte[] publicKeyByte = Helper.hexStringToBytes(publicKey);
- 		byte[] output = Helper.reverse(HashUtil.digest(5, publicKeyByte));
+ 		byte[] output = Helper.reverse(HashUtil.digest(5, publicKey));
  		String digestNum = Helper.hexStringToBinary(Helper.byteToHexString((output)));
         
  		String checkValue = "";
@@ -96,7 +122,7 @@ public final class AccountMng {
  		}
 
  		String paddingValue = "";
- 		String publicKeyBinary = Helper.hexStringToBinary(publicKey);
+ 		String publicKeyBinary = Helper.hexStringToBinary(Helper.byteToHexString(publicKey));
  		while (publicKeyBinary.length() < 260)
  			publicKeyBinary = "0" + publicKeyBinary; 
  		for (int i=0; i<publicKeyBinary.length(); i+=5) {

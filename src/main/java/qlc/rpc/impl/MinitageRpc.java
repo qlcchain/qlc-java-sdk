@@ -1,50 +1,50 @@
-package qlc.rpc;
+package qlc.rpc.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import qlc.network.QlcClient;
 import qlc.network.QlcException;
+import qlc.rpc.QlcRpc;
 
 import java.io.IOException;
 
-public class MinitageRpc {
+public class MinitageRpc extends QlcRpc {
 
-    /**
+    public MinitageRpc(QlcClient client) {
+		super(client);
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
      * Return mintage data by mintage parameters
-     * @param url
      * @param params mintageParams: mintage parameters
      * @return
      * @throws QlcException
      * @throws IOException
      */
-    public static JSONObject getMintageData(String url, JSONArray params) throws QlcException, IOException {
-        QlcClient client = new QlcClient(url);
+    public JSONObject getMintageData(JSONArray params) throws QlcException, IOException {
         return client.call("mintage_getMintageData", params);
     }
 
     /**
      * Return contract send block by mintage parameters
-     * @param url
      * @param params mintageParams: mintage parameters
      * @return
      * @throws QlcException
      * @throws IOException
      */
-    public static JSONObject getMintageBlock(String url, JSONArray params) throws QlcException, IOException {
-        QlcClient client = new QlcClient(url);
+    public JSONObject getMintageBlock(JSONArray params) throws QlcException, IOException {
         return client.call("mintage_getMintageBlock", params);
     }
 
     /**
      * Return contract reward block by contract send block
-     * @param url
      * @param params block: contract send block
      * @return
      * @throws QlcException
      * @throws IOException
      */
-    public static JSONObject getRewardBlock(String url, JSONArray params) throws QlcException, IOException {
-        QlcClient client = new QlcClient(url);
+    public JSONObject getRewardBlock(JSONArray params) throws QlcException, IOException {
         return client.call("mintage_getRewardBlock", params);
     }
 

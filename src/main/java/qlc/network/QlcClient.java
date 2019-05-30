@@ -19,6 +19,8 @@ public class QlcClient {
 	
 	private final URL url;
 	
+	//private final boolean tcpType;
+	
 	public QlcClient(String url) throws MalformedURLException {
 		this.url = new URL(url);
 	}
@@ -29,7 +31,8 @@ public class QlcClient {
 		if (response.containsKey("result"))
 			return response;
 		else if (response.containsKey("error"))
-			throw new QlcException((int)response.getJSONObject("error").getInteger("code"), response.getJSONObject("error").getString("message"));
+			return response;
+			//throw new QlcException((int)response.getJSONObject("error").getInteger("code"), response.getJSONObject("error").getString("message"));
 		else
 			throw new IOException();
 	}
@@ -64,11 +67,11 @@ public class QlcClient {
 
 			JSONObject response = JSONObject.parseObject(method.getResponseBodyAsString());
 			if (response == null) {
-				throw new QlcException(11, "Invalid response type");
+				throw new QlcException(900, "Invalid response type");
 			}
 			return response;
 		} catch (Exception e) {
-			throw new QlcException(1, e.getMessage());
+			throw new QlcException(901, e.getMessage());
 		} finally {
 			method.releaseConnection();
 		}

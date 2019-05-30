@@ -46,8 +46,12 @@ public final class StateBlock extends Block {
 	
 	private String signature;
 
-	public StateBlock(String type, String token, String address, BigInteger balance, String previous, String link,
-			String sender, String receiver, String message, Long timestamp, String representative) {
+	public StateBlock() {
+		super();
+	}
+
+	public StateBlock(String type, String token, String address, BigInteger balance, String previous, 
+			String link, Long timestamp, String representative) {
 		super();
 		this.type = type;
 		this.token = token;
@@ -55,9 +59,6 @@ public final class StateBlock extends Block {
 		this.balance = balance;
 		this.previous = previous;
 		this.link = link;
-		this.sender = sender;
-		this.receiver = receiver;
-		this.message = message;
 		this.timestamp = timestamp;
 		this.representative = representative;
 	}
