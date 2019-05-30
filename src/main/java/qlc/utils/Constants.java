@@ -4,9 +4,6 @@ import java.math.BigInteger;
 
 public class Constants {
 
-	// basic node
-	public static final String URL = "http://192.168.1.122:19735";
-	
 	// exception code
 	public static final int EXCEPTION_CODE_1000 = 1000;
 	public static final String EXCEPTION_MSG_1000 = "Not enought balance";
@@ -40,10 +37,30 @@ public class Constants {
 	public static final String EXCEPTION_BLOCK_MSG_2003 = "Send block does not exist";
 	
 	public static final int EXCEPTION_BLOCK_CODE_2004 = 2004;	
-	public static final String EXCEPTION_BLOCK_MSG_2004 = "receive address is mismatch private key";
+	public static final String EXCEPTION_BLOCK_MSG_2004 = "Address is mismatch private key";
 	
 	public static final int EXCEPTION_BLOCK_CODE_2005 = 2005;	
 	public static final String EXCEPTION_BLOCK_MSG_2005 = "Pending not found";
+	
+	public static final int EXCEPTION_BLOCK_CODE_2006 = 2006;	
+	public static final String EXCEPTION_BLOCK_MSG_2006 = "Invalid representative";
+	
+	public static final int EXCEPTION_BLOCK_CODE_2007 = 2007;	
+	public static final String EXCEPTION_BLOCK_MSG_2007 = "Account is not exist";
+	
+	public static final int EXCEPTION_BLOCK_CODE_2008 = 2008;	
+	public static final String EXCEPTION_BLOCK_MSG_2008 = "Account has no chain token";
+	
+	public static final int EXCEPTION_BLOCK_CODE_2009 = 2009;	
+	public static final String EXCEPTION_BLOCK_MSG_2009 = "Token header block not found";
+	
+	public static final int EXCEPTION_BLOCK_CODE_2010 = 2010;	
+	public static final String EXCEPTION_BLOCK_MSG_2010 = "Parameter error for change block";
+	
+	// system code
+	public static final int EXCEPTION_SYS_CODE_3000 = 3000;	
+	public static final String EXCEPTION_SYS_MSG_3000 = "Need initialize qlc client";
+	
 	
 	// block type
 	public static final String BLOCK_TYPE_OPEN = "Open";
@@ -55,7 +72,5 @@ public class Constants {
 	public static final String ZERO_HASH = "0000000000000000000000000000000000000000000000000000000000000000";
 	public static final BigInteger ZERO_BIG_INTEGER = new BigInteger("0");
 	public static final Long ZERO_LONG = 0l;
-	
-	
 	
 }

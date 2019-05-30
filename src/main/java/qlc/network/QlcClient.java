@@ -28,11 +28,8 @@ public class QlcClient {
 	public JSONObject call(String method, JSONArray params) throws QlcException, IOException {
 		
 		JSONObject response = send(makeRequest(method, params));
-		if (response.containsKey("result"))
+		if (response.containsKey("result") || response.containsKey("error"))
 			return response;
-		else if (response.containsKey("error"))
-			return response;
-			//throw new QlcException((int)response.getJSONObject("error").getInteger("code"), response.getJSONObject("error").getString("message"));
 		else
 			throw new IOException();
 	}
