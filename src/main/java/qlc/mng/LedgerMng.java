@@ -13,7 +13,6 @@ import qlc.bean.Pending.PendingInfo;
 import qlc.bean.StateBlock;
 import qlc.network.QlcClient;
 import qlc.network.QlcException;
-import qlc.utils.Constants;
 import qlc.utils.Helper;
 import qlc.utils.StringUtil;
 
@@ -27,7 +26,7 @@ public class LedgerMng {
      * @throws IOException 
      * @return StateBlock  
      */
-    public static StateBlock getBlockInfoByHash(byte[] blockHash) throws QlcException, IOException {
+    public static StateBlock getBlockInfoByHash(QlcClient client, byte[] blockHash) throws QlcException, IOException {
     	
     	if (blockHash == null)
     		return null;
@@ -35,7 +34,6 @@ public class LedgerMng {
     	JSONArray params = new JSONArray();
     	String[] hashes = {Helper.byteToHexString(blockHash)};
 		params.add(hashes);
-		QlcClient client = new QlcClient(Constants.URL);
 		JSONObject json = client.call("ledger_blocksInfo", params);
 		JSONArray blockArray = null;
 		if (json.containsKey("result")) {
@@ -56,7 +54,7 @@ public class LedgerMng {
      * @throws IOException 
      * @return Pending  
      */
-    public static Pending getAccountPending(String address) throws QlcException, IOException {
+    public static Pending getAccountPending(QlcClient client, String address) throws QlcException, IOException {
     	
     	if (StringUtil.isBlank(address))
     		return null;
@@ -66,14 +64,14 @@ public class LedgerMng {
     	addressArr.add(address);
     	params.add(addressArr);
     	params.add(-1);
-		QlcClient client = new QlcClient(Constants.URL);
 		JSONObject json = client.call("ledger_accountsPending", params);
 		if (json.containsKey("result")) {
 			
-			json = json.getJSONObject("result");
 			Pending pending = new Pending();
 			pending.setAddress(address);
 			List<PendingInfo> infoList = new ArrayList<PendingInfo>();
+			
+			json = json.getJSONObject("result");
 			JSONArray infoArray = json.getJSONArray(address);
 			if (infoArray!=null && infoArray.size()>0) {
 				PendingInfo info = null;
@@ -85,7 +83,6 @@ public class LedgerMng {
 				}
 				pending.setInfoList(infoList);
 			}
-			
 			return pending;
 		} 
 		

@@ -1,4 +1,4 @@
-package qlc.rpc;
+package qlc.rpc.impl;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -9,12 +9,19 @@ import com.google.gson.Gson;
 
 import qlc.bean.StateBlock;
 import qlc.mng.TransactionMng;
+import qlc.network.QlcClient;
 import qlc.network.QlcException;
+import qlc.rpc.QlcRpc;
 import qlc.utils.Constants;
 import qlc.utils.Helper;
 import qlc.utils.StringUtil;
 
-public class TransactionRpc {
+public class TransactionRpc extends QlcRpc {
+
+	public TransactionRpc(QlcClient client) {
+		super(client);
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 *  
@@ -33,7 +40,7 @@ public class TransactionRpc {
 	 * @throws QlcException
 	 * @throws IOException 
 	 */
-	public static JSONObject generateSendBlock(JSONArray params) throws QlcException, IOException {
+	public JSONObject generateSendBlock(JSONArray params) throws QlcException, IOException {
 		
 		JSONObject arrayOne = params.getJSONObject(0);
 		String from = arrayOne.getString("from");
@@ -48,11 +55,14 @@ public class TransactionRpc {
 		if (StringUtil.isBlank(from) || 
 				StringUtil.isBlank(tokenName) || 
 				StringUtil.isBlank(to) || 
-				amount == null || 
-				StringUtil.isBlank(privateKey))
+				amount == null)
 			throw new QlcException(Constants.EXCEPTION_BLOCK_CODE_2000, Constants.EXCEPTION_BLOCK_MSG_2000);
 		
-		return TransactionMng.sendBlock(from, tokenName, to, amount, sender, receiver, message, Helper.hexStringToBytes(privateKey));
+		if (client == null)
+			throw new QlcException(Constants.EXCEPTION_SYS_CODE_3000, Constants.EXCEPTION_SYS_MSG_3000);
+		
+		return TransactionMng.sendBlock(client, from, tokenName, to, amount, sender, receiver, message, 
+				(StringUtil.isNotBlank(privateKey) ? Helper.hexStringToBytes(privateKey) : null));
 		
 	}
 	
@@ -66,7 +76,7 @@ public class TransactionRpc {
 	 * @throws IOException 
 	 * @return JSONObject  
 	 */
-	public static JSONObject generateReceiveBlock(JSONArray params) throws QlcException, IOException {
+	public JSONObject generateReceiveBlock(JSONArray params) throws QlcException, IOException {
 		
 		JSONObject arrayOne = params.getJSONObject(0);
 		StateBlock sendBlock = new Gson().fromJson(arrayOne.toJSONString(), StateBlock.class);
@@ -79,11 +89,46 @@ public class TransactionRpc {
 				StringUtil.isBlank(sendBlock.getPrevious()) || 
 				StringUtil.isBlank(sendBlock.getLink()) || 
 				sendBlock.getTimestamp() == null || 
-				StringUtil.isBlank(sendBlock.getRepresentative()) ||
-				StringUtil.isBlank(privateKey))
+				StringUtil.isBlank(sendBlock.getRepresentative()))
 			throw new QlcException(Constants.EXCEPTION_BLOCK_CODE_2001, Constants.EXCEPTION_BLOCK_MSG_2001);
 		
-		return TransactionMng.receiveBlock(sendBlock, Helper.hexStringToBytes(privateKey));
+		if (client == null)
+			throw new QlcException(Constants.EXCEPTION_SYS_CODE_3000, Constants.EXCEPTION_SYS_MSG_3000);
+		
+		return TransactionMng.receiveBlock(client, sendBlock, 
+				(StringUtil.isNotBlank(privateKey) ? Helper.hexStringToBytes(privateKey) : null));
+	}
+	
+	/**
+	 * 
+	 * @Description Return change block by account and private key
+	 * @param params
+	 * address:account address
+	 * representative:new representative account
+	 * chainTokenHash:chian token hash
+	 * privateKey:private key ,if not set ,will return block without signature and work
+	 * @return JSONObject  
+	 * @throws QlcException
+	 * @throws IOException 
+	 * @return JSONObject  
+	 */
+	public JSONObject generateChangeBlock(JSONArray params) throws QlcException, IOException {
+
+		String address = params.getString(0);
+		String representative = params.getString(1);
+		String chainTokenHash = params.getString(2);
+		String privateKey = params.getString(3);
+		
+		if (StringUtil.isBlank(address) || 
+				StringUtil.isBlank(representative) || 
+				StringUtil.isBlank(chainTokenHash))
+			throw new QlcException(Constants.EXCEPTION_BLOCK_CODE_2010, Constants.EXCEPTION_BLOCK_MSG_2010);
+		
+		if (client == null)
+			throw new QlcException(Constants.EXCEPTION_SYS_CODE_3000, Constants.EXCEPTION_SYS_MSG_3000);
+		
+		return TransactionMng.changeBlock(client, address, representative, chainTokenHash,
+				(StringUtil.isNotBlank(privateKey) ? Helper.hexStringToBytes(privateKey) : null));
 	}
 	
 }
