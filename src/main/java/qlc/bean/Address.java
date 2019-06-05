@@ -14,25 +14,16 @@ public final class Address {
 		this.privateKey = privateKey;
 	}
 
-	/** 
-	 * @return address
-	 */
 	public String getAddress() {
 		return address;
 	}
 
-	/** 
-	 * @return publicKey
-	 */
 	public String getPublicKey() {
 		return publicKey;
 	}
 
-	/** 
-	 * @return privateKey
-	 */
 	public String getPrivateKey() {
 		return privateKey;
 	}
-	
+
 }

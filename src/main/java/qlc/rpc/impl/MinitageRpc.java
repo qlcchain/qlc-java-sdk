@@ -18,9 +18,9 @@ public class MinitageRpc extends QlcRpc {
 	/**
      * Return mintage data by mintage parameters
      * @param params mintageParams: mintage parameters
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return string: data for mintage
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject getMintageData(JSONArray params) throws IOException {
         return client.call("mintage_getMintageData", params);
@@ -29,9 +29,9 @@ public class MinitageRpc extends QlcRpc {
     /**
      * Return contract send block by mintage parameters
      * @param params mintageParams: mintage parameters
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return block: mintage block, type is ContractSend
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject getMintageBlock(JSONArray params) throws IOException {
         return client.call("mintage_getMintageBlock", params);
@@ -40,9 +40,9 @@ public class MinitageRpc extends QlcRpc {
     /**
      * Return contract reward block by contract send block
      * @param params block: contract send block
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return block: contract reward block
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject getRewardBlock(JSONArray params) throws IOException {
         return client.call("mintage_getRewardBlock", params);

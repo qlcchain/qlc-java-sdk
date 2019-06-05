@@ -11,16 +11,10 @@ public class QlcRpc {
 		this.client = client;
 	}
 
-	/** 
-	 * @return client
-	 */
 	public QlcClient getClient() {
 		return client;
 	}
 
-	/** 
-	 * @param client
-	 */
 	public void setClient(QlcClient client) {
 		this.client = client;
 	}

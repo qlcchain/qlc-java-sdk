@@ -14,9 +14,9 @@ public final class BlockMng {
 	
 	/**
 	 * 
-	 * @Description get block root
-	 * @param block
-	 * @throws QlcException 
+	 * get block root
+	 * @param block:block info
+	 * @throws QlcException qlc exception
 	 * @return String  
 	 */
 	public static String getRoot(StateBlock block) {
@@ -28,9 +28,9 @@ public final class BlockMng {
 	
 	/**
 	 * 
-	 * @Description get block hash
-	 * @param block
-	 * @throws QlcException 
+	 * get block hash
+	 * @param block:block info
+	 * @throws QlcException qlc exception 
 	 * @return byte[]:block hash
 	 */
     public static byte[] getHash(StateBlock block) {

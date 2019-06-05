@@ -20,10 +20,11 @@ public class LedgerMng {
     
     /**
      * 
-     * @Description Return block info by block hash
+     * Return block info by block hash
+     * @param client:qlc client
      * @param blockHash:block hash
-     * @throws QlcException
-     * @throws IOException 
+     * @throws QlcException qlc exception
+     * @throws IOException io exception 
      * @return StateBlock  
      */
     public static StateBlock getBlockInfoByHash(QlcClient client, byte[] blockHash) throws IOException {
@@ -48,10 +49,11 @@ public class LedgerMng {
 
     /**
      * 
-     * @Description Return pending info for account
+     * Return pending info for account
+     * @param client:qlc client
      * @param address:account
-     * @throws QlcException
-     * @throws IOException 
+     * @throws QlcException qlc exception
+     * @throws IOException io exception 
      * @return Pending  
      */
     public static Pending getAccountPending(QlcClient client, String address) throws IOException {

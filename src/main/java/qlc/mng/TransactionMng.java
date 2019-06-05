@@ -24,21 +24,19 @@ import qlc.utils.WorkUtil;
 public class TransactionMng {
 
 	/**
-	 *  
-	 * @Description Return send block by send parameter and private key
-	 * @param
-	 * 	send parameter for the block
-	 *	from: send address for the transaction
-	 *	to: receive address for the transaction
-	 *	tokenName: token name
-	 *	amount: transaction amount
-	 *	sender: optional, sms sender
-	 *	receiver: optional, sms receiver
-	 *	message: optional, sms message hash
-	 *	string: private key
-	 * @return JSONObject send block
-	 * @throws QlcException
-	 * @throws IOException 
+	 * 
+	 * Return send block by send parameter and private key
+	 * @param client:qlc client
+	 * @param from:send address for the transaction
+	 * @param tokenName:token name
+	 * @param to:receive address for the transaction
+	 * @param amount:transaction amount
+	 * @param sender:optional, sms sender
+	 * @param receiver:optional, sms receiver
+	 * @param message:optional, sms message hash
+	 * @param privateKey:optonal, private key ,if not set ,will return block without signature and work
+	 * @return block: send block
+	 * @throws IOException io exception
 	 */
 	public static JSONObject sendBlock(QlcClient client, String from, String tokenName, String to, 
 			BigInteger amount, String sender, String receiver, String message, 
@@ -90,7 +88,7 @@ public class TransactionMng {
 		if (hash==null || hash.length==0)
 			throw new QlcException(Constants.EXCEPTION_BLOCK_CODE_2000, Constants.EXCEPTION_BLOCK_MSG_2000);
 
-		if (privateKey!=null && privateKey.length==128) {
+		if (privateKey!=null && privateKey.length==64) {
 
 			// send address info
 			Address sendAddress = new Address(from, AccountMng.addressToPublicKey(from), Helper.byteToHexString(privateKey));
@@ -114,12 +112,13 @@ public class TransactionMng {
 	
 	/**
 	 * 
-	 * @Description Return receive block by send block and private key
-	 * @param sendBlock
-	 * @param privateKey
-	 * @throws QlcException
-	 * @throws IOException 
-	 * @return JSONObject  
+	 * Return receive block by send block and private key
+	 * @param client:qlc client
+	 * @param sendBlock:send block info
+	 * @param privateKey:optonal, private key ,if not set ,will return block without signature and work
+	 * @return block: receive block  
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception 
 	 */
 	public static JSONObject receiveBlock(QlcClient client, StateBlock sendBlock, byte[] privateKey) throws IOException {
 		
@@ -200,7 +199,7 @@ public class TransactionMng {
 			receiveBlock.setMessage(sendBlock.getMessage());
 		receiveBlock.setPovHeight(Constants.ZERO_LONG);
 
-		if (privateKey!=null && privateKey.length==128) {
+		if (privateKey!=null && privateKey.length==64) {
 			
 			// check private key and link
 			String priKey = Helper.byteToHexString(privateKey);
@@ -227,15 +226,15 @@ public class TransactionMng {
 	
 	/**
 	 * 
-	 * @Description Return change block by account and private key
+	 * Return change block by account and private key
+	 * @param client:qlc client
 	 * @param address:account address
 	 * @param representative:new representative account
 	 * @param chainTokenHash:chian token hash
 	 * @param privateKey:private key ,if not set ,will return block without signature and work
-	 * @return 
-	 * @return JSONObject  
-	 * @throws IOException 
-	 * @throws QlcException 
+	 * @return block: change block  
+	 * @throws IOException io exception 
+	 * @throws QlcException qlc exception 
 	 */
 	public static JSONObject changeBlock(QlcClient client, String address, String representative, String chainTokenHash, byte[] privateKey) throws IOException {
 		

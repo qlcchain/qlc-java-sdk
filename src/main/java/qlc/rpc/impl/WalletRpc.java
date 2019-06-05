@@ -20,8 +20,8 @@ public class WalletRpc extends QlcRpc {
      * @param params string: master address of the wallet
                      string: passphrase
      * @return balance of each token in the wallet
-     * @throws QlcException
-     * @throws IOException
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject getBalances(JSONArray params) throws IOException {
         return client.call("wallet_getBalances", params);
@@ -32,8 +32,8 @@ public class WalletRpc extends QlcRpc {
      * @param params string: account address
                      string: passphrase
      * @return private key and public key for the address
-     * @throws QlcException
-     * @throws IOException
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject getRawKey(JSONArray params) throws IOException {
         return client.call("wallet_getRawKey", params);
@@ -43,8 +43,8 @@ public class WalletRpc extends QlcRpc {
      * Generate new seed
      * @param params null
      * @return string: hex string for seed
-     * @throws QlcException
-     * @throws IOException
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject newSeed(JSONArray params) throws IOException {
         return client.call("wallet_newSeed", params);
@@ -55,8 +55,8 @@ public class WalletRpc extends QlcRpc {
      * @param params string: passphrase
                      string: optional, hex string for seed, if not set, will create seed randomly
      * @return string : master address of the wallet
-     * @throws QlcException
-     * @throws IOException
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject newWallet(JSONArray params) throws IOException {
         return client.call("wallet_newWallet", params);
@@ -69,8 +69,8 @@ public class WalletRpc extends QlcRpc {
                      string: old passphrase
                      string: new passphrase
      * @return null
-     * @throws QlcException
-     * @throws IOException
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject changePassword(JSONArray params) throws IOException {
         return client.call("wallet_changePassword", params);

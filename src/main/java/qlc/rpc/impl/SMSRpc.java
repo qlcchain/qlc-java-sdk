@@ -18,9 +18,9 @@ public class SMSRpc extends QlcRpc {
 	/**
      * Return blocks which the sender or receiver of block is the phone number
      * @param params string: phone number
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return []block: blocks that associated with the phone number
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject phoneBlocks(JSONArray params) throws IOException {
         return client.call("sms_phoneBlocks", params);
@@ -29,9 +29,9 @@ public class SMSRpc extends QlcRpc {
     /**
      * Return blocks which message field is the hash
      * @param params string: message hash
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return []block: blocks that associated with the message hash
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject messageBlocks(JSONArray params) throws IOException {
         return client.call("sms_messageBlocks", params);
@@ -40,9 +40,9 @@ public class SMSRpc extends QlcRpc {
     /**
      * Return hash for message
      * @param params string: message
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return string: hash for the message
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject messageHash(JSONArray params) throws IOException {
         return client.call("sms_messageHash", params);
@@ -51,9 +51,9 @@ public class SMSRpc extends QlcRpc {
     /**
      * Store message and return message hash
      * @param params string: message
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return bool: hash for the message
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject messageStore(JSONArray params) throws IOException {
         return client.call("sms_messageStore", params);
