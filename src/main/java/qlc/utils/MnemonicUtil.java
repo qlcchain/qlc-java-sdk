@@ -1,12 +1,11 @@
 package qlc.utils;
 
 import static java.util.Arrays.copyOf;
-import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableMap;
 
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -161,8 +160,18 @@ public final class MnemonicUtil {
 
         MnemonicLanguage(String fileName) {
             try {
-                URL fileLocation = getClassLoader().getResource(fileName);
-                this.dictionary = unmodifiableList(Files.readAllLines(Paths.get(fileLocation.toURI())));
+            	
+            	List<String> tempList = new ArrayList<String>();
+            	InputStream is = this.getClass().getResourceAsStream("english.txt");
+            	InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(isr);
+                String len = null;
+                while ((len=br.readLine()) != null){
+                	tempList.add(len);
+                	len = null;
+                }
+                
+                this.dictionary = tempList;
                 Map<String, Integer> tempDictionaryMap = new HashMap<>();
                 for (String word: dictionary) {
                 	tempDictionaryMap.put(word, dictionary.indexOf(word));
@@ -173,13 +182,13 @@ public final class MnemonicUtil {
             }
         }
 
-        private ClassLoader getClassLoader() {
+        /*private ClassLoader getClassLoader() {
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             if (classLoader != null) {
                 return classLoader;
             }
             return MnemonicLanguage.class.getClassLoader();
-        }
+        }*/
 
         public List<String> getDictionary() {
             return dictionary;
