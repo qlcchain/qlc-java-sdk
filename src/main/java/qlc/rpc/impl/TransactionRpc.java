@@ -25,7 +25,7 @@ public class TransactionRpc extends QlcRpc {
 
 	/**
 	 *  
-	 * @Description Return send block by send parameter and private key
+	 * Return send block by send parameter and private key
 	 * @param params
 	 * 	send parameter for the block
 	 *	from: send address for the transaction
@@ -37,8 +37,8 @@ public class TransactionRpc extends QlcRpc {
 	 *	message: optional, sms message hash
 	 *	string: private key
 	 * @return JSONObject send block
-	 * @throws QlcException
-	 * @throws IOException 
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception 
 	 */
 	public JSONObject generateSendBlock(JSONArray params) throws IOException {
 		
@@ -68,12 +68,12 @@ public class TransactionRpc extends QlcRpc {
 	
 	/**
 	 * 
-	 * @Description Return receive block by send block and private key
+	 * Return receive block by send block and private key
 	 * @param params
 	 * block: send block
 	 * string: optonal, private key ,if not set ,will return block without signature and work
-	 * @throws QlcException
-	 * @throws IOException 
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception 
 	 * @return JSONObject  
 	 */
 	public JSONObject generateReceiveBlock(JSONArray params) throws IOException {
@@ -101,15 +101,15 @@ public class TransactionRpc extends QlcRpc {
 	
 	/**
 	 * 
-	 * @Description Return change block by account and private key
+	 * Return change block by account and private key
 	 * @param params
 	 * address:account address
 	 * representative:new representative account
 	 * chainTokenHash:chian token hash
 	 * privateKey:private key ,if not set ,will return block without signature and work
 	 * @return JSONObject  
-	 * @throws QlcException
-	 * @throws IOException 
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception 
 	 * @return JSONObject  
 	 */
 	public JSONObject generateChangeBlock(JSONArray params) throws IOException {

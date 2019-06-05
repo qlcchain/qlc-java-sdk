@@ -23,7 +23,7 @@ public class AccountRpc {
      * @return JSONObject: the private and public key for account
 			privKey: private key for the new account
 			pubKey: public key for the new account
-	 * @throws QlcException 
+	 * @throws QlcException qlc exception 
      */
 	public static JSONObject create(JSONArray params) {
 		
@@ -49,10 +49,10 @@ public class AccountRpc {
 	
 	/**
 	 * 
-	 * @Description Create new accounts randomly
-	 * @param numbers:number of accounts, default is 10
+	 * Create new accounts randomly
+	 * @param params:number of accounts, default is 10
 	 * @return JSONArray:account info
-	 * @throws QlcException 
+	 * @throws QlcException qlc exception 
 	 */
     public static JSONArray newAccounts(JSONArray params) {
     	
@@ -63,9 +63,9 @@ public class AccountRpc {
 
 	/**
      * Return account address by public key
-     * @param publicKey: public key
+     * @param params: public key
      * @return account address
-	 * @throws QlcException 
+	 * @throws QlcException qlc exception 
      */
 	public static String forPublicKey(JSONArray params) {
 
@@ -79,9 +79,9 @@ public class AccountRpc {
 	
 	/**
      * Return public key for account address
-     * @param address:account address
+     * @param params:account address
      * @return public key
-	 * @throws QlcException 
+	 * @throws QlcException qlc exception 
      */
 	public static String publicKey(JSONArray params) {
 
@@ -92,9 +92,9 @@ public class AccountRpc {
 	
 	/**
      * Returns whether the address is valid or not
-     * @param address:account address
+     * @param params:account address
      * @return bool: if valid , return true, or return false
-	 * @throws QlcException 
+	 * @throws QlcException qlc exception 
      */
 	public static boolean validate(JSONArray params) {
 
@@ -105,9 +105,8 @@ public class AccountRpc {
 	
 	/**
 	 * 
-	 * @Description  Return mnemonics by seed
-	 * @param params
-	 * seed
+	 * Return mnemonics by seed
+	 * @param params seed
 	 * @return String
 	 */
 	public static String seedToMnemonics(JSONArray params) {
@@ -122,9 +121,8 @@ public class AccountRpc {
 	
 	/**
 	 * 
-	 * @Description  Return seed by mnemonics
-	 * @param params
-	 * mnemonics
+	 * Return seed by mnemonics
+	 * @param params mnemonics
 	 * @return String
 	 */
 	public static String mnemonicsToSeed(JSONArray params) {

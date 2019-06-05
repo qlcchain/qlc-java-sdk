@@ -19,9 +19,9 @@ public class LedgerRpc extends QlcRpc {
 	/**
 	 * Return number of blocks for a specific account
 	 * @param params string : the account address
-	 * @return
-	 * @throws QlcException
-	 * @throws IOException
+	 * @return int: blocks number for the account
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountBlocksCount(JSONArray params) throws IOException {
 		return client.call("ledger_accountBlocksCount", params);
@@ -30,9 +30,9 @@ public class LedgerRpc extends QlcRpc {
 	/**
 	 * Return blocks for the account, include each token of the account and order of blocks is forward from the last one
 	 * @param params string : the account address, int: number of blocks to return, int: optional , offset, index of block where to start, default is 0
-	 * @return
-	 * @throws QlcException
-	 * @throws IOException
+	 * @return []block: blocks for the account
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountHistoryTopn(JSONArray params) throws IOException {
 		return client.call("ledger_accountHistoryTopn", params);
@@ -41,9 +41,13 @@ public class LedgerRpc extends QlcRpc {
 	/**
 	 * Return account detail info, include each token in the account
 	 * @param params string : the account address
-	 * @return
-	 * @throws QlcException
-	 * @throws IOException
+	 * @return account : the account address
+		coinBalance : balance of main token of the account (default is QLC)
+		vote,network,storage,oracle: benefit for the account, if account don't have token QLC, these are omit
+		representative : representative address of the account
+		[]token: each token info for the account,
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountInfo(JSONArray params) throws IOException {
 		return client.call("ledger_accountInfo", params);
@@ -52,9 +56,9 @@ public class LedgerRpc extends QlcRpc {
 	/**
 	 * Return the representative address for account
 	 * @param params string : the account address
-	 * @return
-	 * @throws QlcException
-	 * @throws IOException
+	 * @return string: representative address for the account (if account not found, return error)
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountRepresentative(JSONArray params) throws IOException {
 		return client.call("ledger_accountRepresentative", params);
@@ -63,9 +67,9 @@ public class LedgerRpc extends QlcRpc {
 	/**
 	 * Return the vote weight for account
 	 * @param params string :  the vote weight for the account (if account not found, return error)
-	 * @return
-	 * @throws QlcException
-	 * @throws IOException
+	 * @return string: the vote weight for the account (if account not found, return error)
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountVotingWeight(JSONArray params) throws IOException {
 		return client.call("ledger_accountVotingWeight", params);
@@ -77,8 +81,8 @@ public class LedgerRpc extends QlcRpc {
 	 * @param params int: number of accounts to return
 	int: optional , offset, index of account where to start, default is 0
 	 * @return []address: addresses list of accounts
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accounts(JSONArray params) throws IOException {
 		return client.call("ledger_accounts", params);
@@ -88,8 +92,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Returns balance and pending (amount that has not yet been received) for each account
 	 * @param params []string: addresses list
 	 * @return balance and pending amount of each token for each account
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountsBalance(JSONArray params) throws IOException {
 		return client.call("ledger_accountsBalance", params);
@@ -99,8 +103,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return pairs of token name and block hash (representing the head block ) of each token for each account
 	 * @param params []string: addresses list
 	 * @return token name and block hash for each account
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountsFrontiers(JSONArray params) throws IOException {
 		return client.call("ledger_accountsFrontiers", params);
@@ -117,8 +121,8 @@ public class LedgerRpc extends QlcRpc {
 	amount : amount of transaction
 	hash : hash of send block
 	timestamp: timestamp
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountsPending(JSONArray params) throws IOException {
 		return client.call("ledger_accountsPending", params);
@@ -126,10 +130,10 @@ public class LedgerRpc extends QlcRpc {
 
 	/**
 	 * Return total number of accounts of chain
-	 * @param params
+	 * @param params null
 	 * @return: total number of accounts
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject accountsCount(JSONArray params) throws IOException {
 		return client.call("ledger_accountsCount", params);
@@ -139,8 +143,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return the account that the block belong to
 	 * @param params string: block hash
 	 * @return: string: the account address (if block not found, return error)
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject blockAccount(JSONArray params) throws IOException {
 		return client.call("ledger_blockAccount", params);
@@ -151,8 +155,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return hash for the block
 	 * @param params block: block info
 	 * @return: string: block hash
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject blockHash(JSONArray params) throws IOException {
 		return client.call("ledger_blockHash", params);
@@ -164,8 +168,8 @@ public class LedgerRpc extends QlcRpc {
 	 * @param params int: number of blocks to return
 	int: optional, offset, index of block where to start, default is 0
 	 * @return: []block: blocks list
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject blocks(JSONArray params) throws IOException {
 		return client.call("ledger_blocks", params);
@@ -178,8 +182,8 @@ public class LedgerRpc extends QlcRpc {
 	 * @return: number of blocks, means:
 	count: int, number of blocks , include smartcontrant block
 	unchecked: int, number of unchecked blocks
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject blocksCount(JSONArray params) throws IOException {
 		return client.call("ledger_blocksCount", params);
@@ -187,10 +191,10 @@ public class LedgerRpc extends QlcRpc {
 
 	/**
 	 * Report number of blocks by type of chain
-	 * @param params
+	 * @param params null
 	 * @return: number of blocks for each type
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject blocksCountByType(JSONArray params) throws IOException {
 		return client.call("ledger_blocksCountByType", params);
@@ -200,8 +204,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return blocks info for blocks hash
 	 * @param params []string: blocks hash
 	 * @return: []block: blocks info
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject blocksInfo(JSONArray params) throws IOException {
 		return client.call("ledger_blocksInfo", params);
@@ -213,8 +217,8 @@ public class LedgerRpc extends QlcRpc {
 	 * @param params string : block hash to start at
 	int: get the maximum number of blocks, if set n to -1, will list blocks to open block
 	 * @return: []string: block hash list (if block not found, return error)
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject chain(JSONArray params) throws IOException {
 		return client.call("ledger_chain", params);
@@ -224,8 +228,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return a list of pairs of delegator and it's balance for a specific representative account
 	 * @param params string: representative account address
 	 * @return: each delegator and it's balance
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject delegators(JSONArray params) throws IOException {
 		return client.call("ledger_delegators", params);
@@ -235,8 +239,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return number of delegators for a specific representative account
 	 * @param params string: representative account address
 	 * @return: int: number of delegators for the account
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject delegatorsCount(JSONArray params) throws IOException {
 		return client.call("ledger_delegatorsCount", params);
@@ -254,8 +258,8 @@ public class LedgerRpc extends QlcRpc {
 	message: optional, sms message hash
 	string: private key
 	 * @return: block: send block
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject generateSendBlock(JSONArray params) throws IOException {
 		return client.call("ledger_generateSendBlock", params);
@@ -266,8 +270,8 @@ public class LedgerRpc extends QlcRpc {
 	 * @param params block: send block
 	string: private key
 	 * @return: block: receive block
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject generateReceiveBlock(JSONArray params) throws IOException {
 		return client.call("ledger_generateReceiveBlock", params);
@@ -280,8 +284,8 @@ public class LedgerRpc extends QlcRpc {
 	string: new representative account
 	string: private key
 	 * @return: block: change block
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject generateChangeBlock(JSONArray params) throws IOException {
 		return client.call("ledger_generateChangeBlock", params);
@@ -291,8 +295,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Check block base info, update chain info for the block, and broadcast block
 	 * @param params block: block
 	 * @return: string: hash of the block
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject process(JSONArray params) throws IOException {
 		return client.call("ledger_process", params);
@@ -302,8 +306,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return pairs of representative and its voting weight
 	 * @param params bool , optional, if not set or set false, will return representatives randomly, if set true, will sorting represetntative balance in descending order
 	 * @return: each representative and its voting weight
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject representatives(JSONArray params) throws IOException {
 		return client.call("ledger_representatives", params);
@@ -311,10 +315,10 @@ public class LedgerRpc extends QlcRpc {
 
 	/**
 	 * Return tokens of the chain
-	 * @param params
+	 * @param params null
 	 * @return: []token: the tokens info
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject tokens(JSONArray params) throws IOException {
 		return client.call("ledger_tokens", params);
@@ -324,8 +328,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return token info by token id
 	 * @param params string: token id
 	 * @return: token: token info
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject tokenInfoById(JSONArray params) throws IOException {
 		return client.call("ledger_tokenInfoById", params);
@@ -335,8 +339,8 @@ public class LedgerRpc extends QlcRpc {
 	 * Return token info by token name
 	 * @param params string: token name
 	 * @return: token: token info
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject tokenInfoByName(JSONArray params) throws IOException {
 		return client.call("ledger_tokenInfoByName", params);
@@ -344,11 +348,11 @@ public class LedgerRpc extends QlcRpc {
 
 	/**
 	 * Return the number of blocks (not include smartcontrant block) and unchecked blocks of chain
-	 * @param params
+	 * @param params null
 	 * @return: count: int, number of blocks , not include smartcontrant block
 	unchecked: int, number of unchecked blocks
-	 * @throws QlcException
-	 * @throws IOException
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception
 	 */
 	public JSONObject transactionsCount(JSONArray params) throws IOException {
 		return client.call("ledger_transactionsCount", params);

@@ -19,9 +19,9 @@ public class UtilRpc extends QlcRpc {
      * Decrypt the cryptograph string by passphrase
      * @param params string : cryptograph, encoded by base64
                      string : passphrase
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return string : raw data
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject decrypt(JSONArray params) throws IOException {
         return client.call("util_decrypt", params);
@@ -31,9 +31,9 @@ public class UtilRpc extends QlcRpc {
      * Encrypt encrypt raw data by passphrase
      * @param params string : cryptograph, encoded by base64
                      string : passphrase
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return string: cryptograph , encoded by base64
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject encrypt(JSONArray params) throws IOException {
         return client.call("util_encrypt", params);
@@ -44,9 +44,9 @@ public class UtilRpc extends QlcRpc {
      * @param params string: raw value
                     string: unit
                     string: optional, token name , if not set , default is QLC
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return string: balance for the unit
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject rawToBalance(JSONArray params) throws IOException {
         return client.call("util_rawToBalance", params);
@@ -57,9 +57,9 @@ public class UtilRpc extends QlcRpc {
      * @param params string: balance
                     string: unit
                     string: optional, token name , if not set , default is QLC
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return string: raw value
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject balanceToRaw(JSONArray params) throws IOException {
         return client.call("util_balanceToRaw", params);

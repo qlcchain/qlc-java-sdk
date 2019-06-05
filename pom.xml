@@ -3,9 +3,9 @@
 	 	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>qlc-java-sdk</groupId>
+	<groupId>com.github.qlcchain</groupId>
 	<artifactId>qlc-java-sdk</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHO</version>
 
 	<properties>
 	    <maven.compiler.source>1.8</maven.compiler.source>
@@ -13,6 +13,49 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	
+	<licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <scm>
+        <url>https://github.com/qlcchain/qlc-java-sdk</url>
+        <connection>https://github.com/qlcchain/qlc-java-sdk.git</connection>
+        <developerConnection>https://github.com/qlcchain/qlc-java-sdk</developerConnection>
+    </scm>
+    
+    <developers>
+        <developer>
+            <name>yfhuang521</name>
+            <email>yfhuang521@gmail.com</email>
+            <organization>QLC Chain</organization>
+        </developer>
+    </developers>
+    
+	<!-- <distributionManagement>
+	    <repository>
+	        <id>proficio-repository</id>
+	        <name>Proficio Repository</name>
+	        <url>file://${basedir}/target/deploy</url>
+	    </repository>
+	</distributionManagement> -->
+	
+	<distributionManagement>
+	   <snapshotRepository>
+	      <id>nexus-snapshots</id>
+	      <url>http://localhost:8081/nexus/content/repositories/snapshots</url>
+	   </snapshotRepository>
+	</distributionManagement>
+		
 	<dependencies>
 	  	
 		<dependency>
@@ -54,9 +97,16 @@
 		    <version>0.3.0</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+		    <groupId>com.squareup.okhttp3</groupId>
+		    <artifactId>okhttp</artifactId>
+		    <version>3.14.2</version>
+		</dependency>
+		
 	</dependencies>
 
-	<build>
+	<!-- <build>
 		<plugins>
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -85,6 +135,26 @@
                 </executions>
             </plugin>
 		</plugins>
-	</build>
+	</build> -->
+	
+	<!-- <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build> -->
+	
 	
 </project>

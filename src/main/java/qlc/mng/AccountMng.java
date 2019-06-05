@@ -41,8 +41,8 @@ public final class AccountMng {
 	
 	/**
 	 * 
-	 * @Description Create a new account by seed and index
-	 * @param seed
+	 * Create a new account by seed and index
+	 * @param seed:seed
 	 * @param index:optional, index for account, if not set, default value is 0
 	 * @return JSONObject  
 	 * 	privKey: private key for the new account
@@ -70,7 +70,7 @@ public final class AccountMng {
 	
 	/**
 	 * 
-	 * @Description Create new accounts randomly
+	 * Create new accounts randomly
 	 * @param numbers:number of accounts, default is 10
 	 * @return JSONArray:account info
 	 */
@@ -96,7 +96,7 @@ public final class AccountMng {
     
     /**
      * 
-     * @Description Return account address by public key
+     * Return account address by public key
      * @param publicKey:public key
      * @return String account address
      */
@@ -135,7 +135,7 @@ public final class AccountMng {
  	
  	/**
  	 * 
- 	 * @Description Return public key for account address
+ 	 * Return public key for account address
  	 * @param address:account address
  	 * @return String public key
  	 */
@@ -185,7 +185,7 @@ public final class AccountMng {
 
  	/**
  	 * 
- 	 * @Description Returns whether the address is valid or not
+ 	 * Returns whether the address is valid or not
  	 * @param address:account address
  	 * @return boolean if valid , return true, or return false
  	 */

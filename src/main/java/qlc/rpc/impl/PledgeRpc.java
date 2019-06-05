@@ -21,9 +21,9 @@ public class PledgeRpc extends QlcRpc {
      *               beneficial：beneficial account
      *               amount：amount of pledge
      *               pType：type of pledge
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return pledge info
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject searchPledgeInfo(JSONArray params) throws IOException {
         return client.call("pledge_searchPledgeInfo", params);
@@ -33,9 +33,9 @@ public class PledgeRpc extends QlcRpc {
     /**
      * Return all pledge info
      * @param params pledgeParams: no
-     * @return
-     * @throws QlcException
-     * @throws IOException
+     * @return pledge info
+     * @throws QlcException qlc exception
+     * @throws IOException io exception
      */
     public JSONObject pledge_searchAllPledgeInfo(JSONArray params) throws IOException {
         return client.call("pledge_searchAllPledgeInfo", params);

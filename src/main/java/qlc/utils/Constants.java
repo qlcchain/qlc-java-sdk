@@ -67,6 +67,15 @@ public class Constants {
 	public static final int EXCEPTION_SYS_CODE_3000 = 3000;	
 	public static final String EXCEPTION_SYS_MSG_3000 = "Need initialize qlc client";
 	
+	public static final int EXCEPTION_SYS_CODE_3001 = 3001;	
+	public static final String EXCEPTION_SYS_MSG_3001 = "Node url can`t be empty";
+	
+	public static final int EXCEPTION_SYS_CODE_3002 = 3002;	
+	public static final String EXCEPTION_SYS_MSG_3002 = "Error node url";
+	
+	public static final int EXCEPTION_SYS_CODE_3003 = 3003;	
+	public static final String EXCEPTION_SYS_MSG_3003 = "Invalid node url";
+	
 	
 	// block type
 	public static final String BLOCK_TYPE_OPEN = "Open";
@@ -78,5 +87,12 @@ public class Constants {
 	public static final String ZERO_HASH = "0000000000000000000000000000000000000000000000000000000000000000";
 	public static final BigInteger ZERO_BIG_INTEGER = new BigInteger("0");
 	public static final Long ZERO_LONG = 0l;
+
+	// websocket close state
+	public static final int NORMAL_CLOSURE_STATUS = 1000;
+	
+	// url start
+	public static final String URL_START_HTTP = "http";
+	public static final String URL_START_WEB_SOCKET = "ws";
 	
 }

@@ -14,10 +14,11 @@ public class TokenMng {
 
 	/**
 	 * 
-	 * @Description 
-	 * @param tokenName
-	 * @throws QlcException
-	 * @throws IOException 
+	 * Return token info by token id
+     * @param client:qlc client
+	 * @param tokenName:token name
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception 
 	 * @return Token  
 	 */
 	public static Token getTokenByTokenName(QlcClient client, String tokenName) throws IOException {

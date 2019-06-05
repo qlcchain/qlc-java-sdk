@@ -13,7 +13,15 @@ import qlc.network.QlcClient;
 
 public class TokenMetaMng {
 
-	// return account`s token meta info by address and token hash
+	/**
+	 * 
+	 * Return account`s token meta info by address and token hash
+     * @param client:qlc client
+	 * @param tokenHash:the token id
+	 * @param address:the account address
+	 * @return TokenMeta token info for the account and token hash
+	 * @throws IOException io exception
+	 */
 	public static TokenMeta getTokenMeta(QlcClient client, String tokenHash, String address) throws IOException {
 		
 		JSONArray params = new JSONArray();
@@ -41,7 +49,19 @@ public class TokenMetaMng {
 		return null;
 	}
 
-	// return account info by address
+	/**
+	 * 
+	 * Return account detail info, include each token in the account
+	 * @param client:qlc client
+	 * @param address:the account address
+	 * @return Account  
+	 * account : the account address
+		coinBalance : balance of main token of the account (default is QLC)
+		vote,network,storage,oracle: benefit for the account, if account don't have token QLC, these are omit
+		representative : representative address of the account
+		[]token: each token info for the account,
+	 * @throws IOException ip exception
+	 */
 	public static Account getAccountMeta(QlcClient client, String address) throws IOException {
 		
 		JSONArray params = new JSONArray();
