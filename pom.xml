@@ -5,7 +5,7 @@
 	
 	<groupId>com.github.qlcchain</groupId>
 	<artifactId>qlc-java-sdk</artifactId>
-	<version>1.0.0-SNAPSHO</version>
+	<version>1.2</version>
 
 	<properties>
 	    <maven.compiler.source>1.8</maven.compiler.source>
@@ -41,19 +41,19 @@
         </developer>
     </developers>
     
-	<!-- <distributionManagement>
-	    <repository>
-	        <id>proficio-repository</id>
-	        <name>Proficio Repository</name>
-	        <url>file://${basedir}/target/deploy</url>
-	    </repository>
-	</distributionManagement> -->
-	
 	<distributionManagement>
-	   <snapshotRepository>
-	      <id>nexus-snapshots</id>
-	      <url>http://localhost:8081/nexus/content/repositories/snapshots</url>
-	   </snapshotRepository>
+		<!-- Repository for snapshots -->
+		<!-- <repository>
+		    <id>sonatype-nexus-snapshots</id>
+		    <name>Nexus snapshots Repository</name>
+		    <url> https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository> -->
+		<!-- Repository for releases -->
+		<repository>
+		    <id>sonatype-nexus-releases</id>
+		    <name>Nexus Release Repository</name>
+		    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
 	</distributionManagement>
 		
 	<dependencies>
@@ -106,55 +106,99 @@
 		
 	</dependencies>
 
-	<!-- <build>
+	<build>
 		<plugins>
-			<plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-        		<version>3.1.1</version>
-                <configuration>
-		         	<source>1.8</source>
-		          	<target>1.8</target>
-                    <archive>
-                        <manifest>
-                            <mainClass>cn.mastercom.locspark.LocFill</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+		<plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-compiler-plugin</artifactId>
+		    <version>2.3.2</version>
+		    <configuration>
+		        <source>1.8</source>
+		        <target>1.8</target>
+				<archive>
+					<addMavenDescriptor>false</addMavenDescriptor>
+					<manifest>
+						<mainClass>Class</mainClass>
+					</manifest>
+				</archive>
+		    </configuration>
+		</plugin>
+		  <!-- <plugin>
+		      <artifactId>maven-assembly-plugin</artifactId>
+		      <version>2.3</version>
+		      <configuration>
+		          <descriptorRefs>
+		              <descriptorRef>jar-with-dependencies</descriptorRef>
+		          </descriptorRefs>
+		      </configuration>
+		      <executions>
+		          <execution>
+		              <phase>package</phase>
+		              <goals>
+		                  <goal>single</goal>
+		              </goals>
+		          </execution>
+		      </executions>
+		  </plugin> -->
+		  <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-source-plugin</artifactId>
+		      <version>2.1.2</version>
+		      <executions>
+		          <execution>
+		              <id>attach-sources</id>
+		              <goals>
+		                  <goal>jar</goal>
+		              </goals>
+		          </execution>
+		      </executions>
+		  </plugin>
+		  <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-javadoc-plugin</artifactId>
+		      <configuration>
+		          <quiet>true</quiet>
+		          <nonavbar>true</nonavbar>
+		          <notree>true</notree>
+		          <nocomment>true</nocomment>
+		          <nohelp>true</nohelp>
+		
+		      </configuration>
+		      <executions>
+		          <execution>
+		              <id>attach-javadocs</id>
+		              <goals>
+		                  <goal>jar</goal>
+		              </goals>
+		          </execution>
+		      </executions>
+		  </plugin>
+		  <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-gpg-plugin</artifactId>
+		      <executions>
+		          <execution>
+		              <id>sign-artifacts</id>
+		              <phase>verify</phase>
+		              <goals>
+		                  <goal>sign</goal>
+		              </goals>
+		          </execution>
+		      </executions>
+		  </plugin>
 		</plugins>
-	</build> -->
 	
-	<!-- <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.0</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build> -->
-	
+	    <resources>  
+			<!-- Packaging configuration files into jar start -->
+	        <resource>  
+	            <directory>src/main/java</directory>  
+	            <includes>  
+	                <include>**/*.txt</include>  
+	            </includes>  
+	            <filtering>false</filtering>  
+	        </resource>  
+			<!-- Packaging configuration files into jar end -->
+	    </resources>  
+	</build>
 	
 </project>
