@@ -76,12 +76,13 @@ public class Constants {
 	public static final int EXCEPTION_SYS_CODE_3003 = 3003;	
 	public static final String EXCEPTION_SYS_MSG_3003 = "Invalid node url";
 	
-	
 	// block type
 	public static final String BLOCK_TYPE_OPEN = "Open";
 	public static final String BLOCK_TYPE_SEND = "Send";
 	public static final String BLOCK_TYPE_RECEIVE = "Receive";
 	public static final String BLOCK_TYPE_CHANGE = "Change";
+	public static final String BLOCK_TYPE_CONTRACTSEND = "ContractSend";
+	public static final String BLOCK_TYPE_CONTRACTREWARD = "ContractReward";
 	
 	// block parameter default value
 	public static final String ZERO_HASH = "0000000000000000000000000000000000000000000000000000000000000000";
@@ -94,5 +95,9 @@ public class Constants {
 	// url start
 	public static final String URL_START_HTTP = "http";
 	public static final String URL_START_WEB_SOCKET = "ws";
+	
+	// link type
+	public static final String LINNK_TYPE_AIRDORP = "d614bb9d5e20ad063316ce091148e77c99136c6194d55c7ecc7ffa9620dbcaeb";
+	
 	
 }

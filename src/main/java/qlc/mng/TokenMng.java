@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 
 import qlc.bean.Token;
 import qlc.network.QlcClient;
-import qlc.network.QlcException;
 
 public class TokenMng {
 
@@ -17,7 +16,6 @@ public class TokenMng {
 	 * Return token info by token id
      * @param client:qlc client
 	 * @param tokenName:token name
-	 * @throws QlcException qlc exception
 	 * @throws IOException io exception 
 	 * @return Token  
 	 */

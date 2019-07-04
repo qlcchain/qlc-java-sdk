@@ -6,6 +6,7 @@ import qlc.bean.Block;
 import qlc.bean.StateBlock;
 import qlc.network.QlcException;
 import qlc.utils.Constants;
+import qlc.utils.Encodes;
 import qlc.utils.HashUtil;
 import qlc.utils.Helper;
 import qlc.utils.StringUtil;
@@ -16,7 +17,6 @@ public final class BlockMng {
 	 * 
 	 * get block root
 	 * @param block:block info
-	 * @throws QlcException qlc exception
 	 * @return String  
 	 */
 	public static String getRoot(StateBlock block) {
@@ -68,6 +68,9 @@ public final class BlockMng {
 
         if (StringUtil.isNotBlank(block.getMessage()))
         	sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getMessage()));
+
+        if (StringUtil.isNotBlank(block.getData()))
+        	sources = Helper.byteMerger(sources, Encodes.decodeBase64(block.getData()));
         
         sources = Helper.byteMerger(sources, Helper.LongToBytes(block.getTimestamp()));
         
