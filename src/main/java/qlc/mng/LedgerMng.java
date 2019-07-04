@@ -12,7 +12,6 @@ import qlc.bean.Pending;
 import qlc.bean.Pending.PendingInfo;
 import qlc.bean.StateBlock;
 import qlc.network.QlcClient;
-import qlc.network.QlcException;
 import qlc.utils.Helper;
 import qlc.utils.StringUtil;
 
@@ -23,7 +22,6 @@ public class LedgerMng {
      * Return block info by block hash
      * @param client:qlc client
      * @param blockHash:block hash
-     * @throws QlcException qlc exception
      * @throws IOException io exception 
      * @return StateBlock  
      */
@@ -41,7 +39,8 @@ public class LedgerMng {
 			
 			blockArray = json.getJSONArray("result");
 			
-			return new Gson().fromJson(blockArray.getJSONObject(0).toJSONString(), StateBlock.class);
+			if (!blockArray.isEmpty())
+				return new Gson().fromJson(blockArray.getJSONObject(0).toJSONString(), StateBlock.class);
 		} 
 		
 		return null;
@@ -52,7 +51,6 @@ public class LedgerMng {
      * Return pending info for account
      * @param client:qlc client
      * @param address:account
-     * @throws QlcException qlc exception
      * @throws IOException io exception 
      * @return Pending  
      */

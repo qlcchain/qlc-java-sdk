@@ -71,6 +71,7 @@ public class TransactionRpc extends QlcRpc {
 	 * Return receive block by send block and private key
 	 * @param params
 	 * block: send block
+	 * address: receive address
 	 * string: optonal, private key ,if not set ,will return block without signature and work
 	 * @throws QlcException qlc exception
 	 * @throws IOException io exception 
@@ -78,9 +79,15 @@ public class TransactionRpc extends QlcRpc {
 	 */
 	public JSONObject generateReceiveBlock(JSONArray params) throws IOException {
 		
+		if (params == null)
+				throw new QlcException(Constants.EXCEPTION_BLOCK_CODE_2001, Constants.EXCEPTION_BLOCK_MSG_2001);
+		
 		JSONObject arrayOne = params.getJSONObject(0);
+		String receiveAddress = params.getString(1);
 		StateBlock sendBlock = new Gson().fromJson(arrayOne.toJSONString(), StateBlock.class);
-		String privateKey = params.getString(1);
+		String privateKey = null;
+		if (params.size() > 2)
+			privateKey = params.getString(2);
 		
 		if (StringUtil.isBlank(sendBlock.getType()) ||
 				StringUtil.isBlank(sendBlock.getToken()) || 
@@ -89,13 +96,14 @@ public class TransactionRpc extends QlcRpc {
 				StringUtil.isBlank(sendBlock.getPrevious()) || 
 				StringUtil.isBlank(sendBlock.getLink()) || 
 				sendBlock.getTimestamp() == null || 
-				StringUtil.isBlank(sendBlock.getRepresentative()))
+				StringUtil.isBlank(sendBlock.getRepresentative()) ||
+				StringUtil.isBlank(receiveAddress))
 			throw new QlcException(Constants.EXCEPTION_BLOCK_CODE_2001, Constants.EXCEPTION_BLOCK_MSG_2001);
 		
 		if (client == null)
 			throw new QlcException(Constants.EXCEPTION_SYS_CODE_3000, Constants.EXCEPTION_SYS_MSG_3000);
 		
-		return TransactionMng.receiveBlock(client, sendBlock, 
+		return TransactionMng.receiveBlock(client, sendBlock, receiveAddress,
 				(StringUtil.isNotBlank(privateKey) ? Helper.hexStringToBytes(privateKey) : null));
 	}
 	
