@@ -1,6 +1,6 @@
 package qlc.utils;
 
-import org.apache.commons.codec.binary.Base64;
+import qlc.utils.Base64.Base64;
 
 public class Encodes {
 
