@@ -13,8 +13,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import qlc.network.QlcException;
 
@@ -45,8 +43,6 @@ public final class MnemonicUtil {
         }
     }
 
-
-    
     public static byte[] mnemonicToSeed(List<String> mnemonic, MnemonicLanguage language) {
     	
     	Checking.check(!isValid(mnemonic, language), "Invalid mnemonic");
@@ -61,8 +57,15 @@ public final class MnemonicUtil {
 
     public static boolean isValid(List<String> mnemonic, MnemonicLanguage language) {
     	
-        if (mnemonic.size() != 24 || !mnemonic.stream().allMatch(language::wordExists)) {
+        /*if (mnemonic.size() != 24 || !mnemonic.stream().allMatch(language::wordExists)) {
             return false;
+        }*/
+        if (mnemonic.size() != 24) {
+            return false;
+        }
+        for (String m : mnemonic) {
+        	if (!language.wordExists(m))
+        		return false;
         }
 
         byte[] seedWithChecksum = extractSeedWithChecksum(mnemonic, language);
@@ -79,7 +82,9 @@ public final class MnemonicUtil {
     }
     
     public static List<String> toList(String mnemonics) {
-        return Pattern.compile(" ").splitAsStream(mnemonics).collect(Collectors.toList());
+    	mnemonics = mnemonics.trim();
+    	String[] strArr = mnemonics.split(" ");
+    	return Arrays.asList(strArr);
     }
 
     private static byte[] extractSeedWithChecksum(List<String> mnemonic, MnemonicLanguage language) {

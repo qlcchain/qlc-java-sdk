@@ -97,7 +97,11 @@ public class WorkUtil {
 	        result <<= 8;
 	        result |= (bytes[i] & 0xFF);
 	    }
-		return Long.compareUnsigned(result, THRESHOLD) > 0; //wew java 8!
+	    
+	    long MIN_VALUE = 0x8000000000000000L;
+	    long x = result + MIN_VALUE, y = THRESHOLD + MIN_VALUE;
+	    return ((x < y) ? -1 : ((x == y) ? 0 : 1)) > 0;
+		//return Long.compareUnsigned(result, THRESHOLD) > 0; //wew java 8!
 	}
 
 }

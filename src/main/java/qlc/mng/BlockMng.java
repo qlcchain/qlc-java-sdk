@@ -61,17 +61,17 @@ public final class BlockMng {
         sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getLink()));
 
         if (StringUtil.isNotBlank(block.getSender()))
-        	sources = Helper.byteMerger(sources, Encodes.decodeBase64(block.getSender()));
+        	sources = Helper.byteMerger(sources, block.getSender().getBytes());
 
         if (StringUtil.isNotBlank(block.getReceiver()))
-        	sources = Helper.byteMerger(sources, Encodes.decodeBase64(block.getReceiver()));
+        	sources = Helper.byteMerger(sources, block.getReceiver().getBytes());
 
         if (StringUtil.isNotBlank(block.getMessage()))
         	sources = Helper.byteMerger(sources, Helper.hexStringToBytes(block.getMessage()));
-
+        
         if (StringUtil.isNotBlank(block.getData()))
         	sources = Helper.byteMerger(sources, Encodes.decodeBase64(block.getData()));
-        
+
         sources = Helper.byteMerger(sources, Helper.LongToBytes(block.getTimestamp()));
         
         if (block.getPovHeight() != null)
