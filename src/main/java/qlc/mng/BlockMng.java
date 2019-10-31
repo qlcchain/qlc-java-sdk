@@ -20,7 +20,7 @@ public final class BlockMng {
 	 * @return String  
 	 */
 	public static String getRoot(StateBlock block) {
-		if (block.getType().equals(Constants.BLOCK_TYPE_OPEN)) {
+		if (Constants.ZERO_HASH.equals(block.getPrevious())) {	
 			return AccountMng.addressToPublicKey(block.getAddress());
 		} else
 			return block.getPrevious();
