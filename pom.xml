@@ -175,6 +175,7 @@
 		      </executions>
 		  </plugin>
 		</plugins>
+		
 	
 	    <resources>  
 			<!-- Packaging configuration files into jar start -->
