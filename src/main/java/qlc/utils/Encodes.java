@@ -8,6 +8,7 @@ public class Encodes {
 	public static String encodeBase64(byte[] input) {
 		return Base64.encodeBase64String(input);
 	}
+	
 
 	// Base64 encode, URL safe(change '+' and '/' to '-'and'_', RFC3548)
 	public static String encodeUrlSafeBase64(byte[] input) {

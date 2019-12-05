@@ -4,6 +4,7 @@ import java.math.BigInteger;
 
 
 public class Base64 extends BaseNCodec{
+	
     private static final int BITS_PER_ENCODED_BYTE = 6;
     private static final int BYTES_PER_UNENCODED_BLOCK = 3;
     private static final int BYTES_PER_ENCODED_BLOCK = 4;

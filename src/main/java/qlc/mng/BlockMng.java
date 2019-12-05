@@ -26,6 +26,7 @@ public final class BlockMng {
 			return block.getPrevious();
 	}
 	
+	
 	/**
 	 * 
 	 * get block hash
