@@ -182,7 +182,6 @@ public class Base64 extends BaseNCodec{
         }
     }
 
-    /** @deprecated */
     @Deprecated
     public static boolean isArrayByteBase64(byte[] arrayOctet) {
         return isBase64(arrayOctet);
