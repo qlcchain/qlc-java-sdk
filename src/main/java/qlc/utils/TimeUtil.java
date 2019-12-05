@@ -15,17 +15,17 @@ import java.util.TimeZone;
 
 public class TimeUtil {
 	
-	// 取北京时间
+	// Beijing time
     public static String getBeijingTime(){
         return getFormatedDateString(8);
     }
     
-	// 取班加罗尔时间
+	// Bangalore time
     public static String getBangaloreTime(){
         return getFormatedDateString(5.5f);
     }
     
-    // 取纽约时间
+    // New York time
     public static String getNewyorkTime(){
         return getFormatedDateString(-5);
     }
