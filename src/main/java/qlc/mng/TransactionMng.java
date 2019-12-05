@@ -17,8 +17,10 @@ import qlc.bean.TokenMeta;
 import qlc.network.QlcClient;
 import qlc.network.QlcException;
 import qlc.utils.Constants;
+import qlc.utils.Encodes;
 import qlc.utils.Helper;
 import qlc.utils.StringUtil;
+import qlc.utils.TimeUtil;
 import qlc.utils.WorkUtil;
 
 public class TransactionMng {
@@ -39,7 +41,7 @@ public class TransactionMng {
 	 * @throws IOException io exception
 	 */
 	public static JSONObject sendBlock(QlcClient client, String from, String tokenName, String to, 
-			BigInteger amount, String sender, String receiver, String message, 
+			BigInteger amount, String sender, String receiver, String message, String data, 
 			byte[] privateKey) throws IOException {
 		
 		// token info
@@ -62,16 +64,22 @@ public class TransactionMng {
 				tokenMeta.getBalance().subtract(amount),
 				tokenMeta.getHeader(), 
 				AccountMng.addressToPublicKey(to), 
-				new Long(System.currentTimeMillis()/1000), 
+				TimeUtil.getTimeSeconds(0), 
 				tokenMeta.getRepresentative());
+		
 		if (StringUtil.isNotBlank(sender))
 			block.setSender(sender);
+		
 		if (StringUtil.isNotBlank(receiver))
 			block.setReceiver(receiver);
+		
 		if (StringUtil.isNotBlank(message))
 			block.setMessage(message);
 		else
 			block.setMessage(Constants.ZERO_HASH);
+		
+		if (StringUtil.isNotBlank(data))
+			block.setData(Encodes.encodeBase64(data.getBytes()));
 			
 		block.setVote((previousBlock.getVote()==null) ? new BigInteger("0") : previousBlock.getVote());
 		block.setNetwork((previousBlock.getNetwork()==null) ? new BigInteger("0") : previousBlock.getNetwork());
@@ -188,7 +196,7 @@ public class TransactionMng {
 			receiveBlock.setRepresentative(tokenMeta.getRepresentative());
 			receiveBlock.setToken(tokenMeta.getType());
 			receiveBlock.setExtra(Constants.ZERO_HASH);
-			receiveBlock.setTimestamp(new Long(System.currentTimeMillis()/1000));
+			receiveBlock.setTimestamp(TimeUtil.getTimeSeconds(0));
 		} else {
 			receiveBlock.setType(Constants.BLOCK_TYPE_OPEN);
 			receiveBlock.setAddress(receiveAddress);
@@ -202,7 +210,7 @@ public class TransactionMng {
 			receiveBlock.setRepresentative(sendBlock.getRepresentative());
 			receiveBlock.setToken(sendBlock.getToken());
 			receiveBlock.setExtra(Constants.ZERO_HASH);
-			receiveBlock.setTimestamp(new Long(System.currentTimeMillis()/1000));
+			receiveBlock.setTimestamp(TimeUtil.getTimeSeconds(0));
 		}
 		if (StringUtil.isBlank(sendBlock.getMessage()))
 			receiveBlock.setMessage(Constants.ZERO_HASH);
@@ -290,7 +298,7 @@ public class TransactionMng {
 		changeBlock.setRepresentative(representative);
 		changeBlock.setToken(tokenMeta.getType());
 		changeBlock.setExtra(Constants.ZERO_HASH);
-		changeBlock.setTimestamp(new Long(System.currentTimeMillis()/1000));
+		changeBlock.setTimestamp(TimeUtil.getTimeSeconds(0));
 		changeBlock.setMessage(Constants.ZERO_HASH);
 		changeBlock.setPovHeight(Constants.ZERO_LONG);
 		

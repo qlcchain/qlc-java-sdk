@@ -50,6 +50,7 @@ public class TransactionRpc extends QlcRpc {
 		String sender = arrayOne.getString("sender");
 		String receiver = arrayOne.getString("receiver");
 		String message = arrayOne.getString("message");
+		String data = arrayOne.getString("data");
 		String privateKey = params.getString(1);
 		
 		if (StringUtil.isBlank(from) || 
@@ -61,7 +62,7 @@ public class TransactionRpc extends QlcRpc {
 		if (client == null)
 			throw new QlcException(Constants.EXCEPTION_SYS_CODE_3000, Constants.EXCEPTION_SYS_MSG_3000);
 		
-		return TransactionMng.sendBlock(client, from, tokenName, to, amount, sender, receiver, message, 
+		return TransactionMng.sendBlock(client, from, tokenName, to, amount, sender, receiver, message, data,
 				(StringUtil.isNotBlank(privateKey) ? Helper.hexStringToBytes(privateKey) : null));
 		
 	}
