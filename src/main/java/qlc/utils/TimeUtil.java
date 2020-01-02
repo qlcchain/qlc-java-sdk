@@ -75,4 +75,8 @@ public class TimeUtil {
 		}
     }
     
+    public static void main(String[] args) {
+		System.out.println(getTimeSeconds(8));
+		System.out.println(System.currentTimeMillis()/1000);
+	}
 }
