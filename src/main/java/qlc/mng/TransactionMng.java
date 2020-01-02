@@ -49,7 +49,10 @@ public class TransactionMng {
 		
 		// send address token info
 		TokenMeta tokenMeta = TokenMetaMng.getTokenMeta(client, token.getTokenId(), from);
-		if (tokenMeta.getBalance().compareTo(amount) == -1) {
+		if (tokenMeta == null) {
+			throw new QlcException(Constants.EXCEPTION_CODE_1000, Constants.EXCEPTION_MSG_1000);
+		}
+		if (tokenMeta.getBalance().compareTo(amount)==-1) {
 			throw new QlcException(Constants.EXCEPTION_CODE_1000, Constants.EXCEPTION_MSG_1000 + "(balance:" + tokenMeta.getBalance() + ", need:" + amount + ")");
 		}
 		
@@ -85,7 +88,7 @@ public class TransactionMng {
 		block.setNetwork((previousBlock.getNetwork()==null) ? new BigInteger("0") : previousBlock.getNetwork());
 		block.setStorage((previousBlock.getStorage()==null) ? new BigInteger("0") : previousBlock.getStorage());
 		block.setOracle((previousBlock.getOracle()==null) ? new BigInteger("0") : previousBlock.getOracle());
-		block.setPovHeight((previousBlock.getPovHeight()==null) ? 0l : previousBlock.getPovHeight());
+		block.setPovHeight(PovMng.getFittestHeader(client));
 		if (StringUtil.isBlank(previousBlock.getExtra()))
 			block.setExtra(Constants.ZERO_HASH);
 		else
@@ -197,7 +200,7 @@ public class TransactionMng {
 			receiveBlock.setRepresentative(tokenMeta.getRepresentative());
 			receiveBlock.setToken(tokenMeta.getType());
 			receiveBlock.setExtra(Constants.ZERO_HASH);
-			receiveBlock.setTimestamp(TimeUtil.getTimeSeconds(0));
+			receiveBlock.setTimestamp(System.currentTimeMillis()/1000);
 		} else {
 			receiveBlock.setType(Constants.BLOCK_TYPE_OPEN);
 			receiveBlock.setAddress(receiveAddress);
@@ -211,13 +214,13 @@ public class TransactionMng {
 			receiveBlock.setRepresentative(sendBlock.getRepresentative());
 			receiveBlock.setToken(sendBlock.getToken());
 			receiveBlock.setExtra(Constants.ZERO_HASH);
-			receiveBlock.setTimestamp(TimeUtil.getTimeSeconds(0));
+			receiveBlock.setTimestamp(System.currentTimeMillis()/1000);
 		}
 		if (StringUtil.isBlank(sendBlock.getMessage()))
 			receiveBlock.setMessage(Constants.ZERO_HASH);
 		else
 			receiveBlock.setMessage(sendBlock.getMessage());
-		receiveBlock.setPovHeight(Constants.ZERO_LONG);
+		receiveBlock.setPovHeight(PovMng.getFittestHeader(client));
 
 		if (privateKey!=null && privateKey.length==64) {
 			
@@ -299,9 +302,9 @@ public class TransactionMng {
 		changeBlock.setRepresentative(representative);
 		changeBlock.setToken(tokenMeta.getType());
 		changeBlock.setExtra(Constants.ZERO_HASH);
-		changeBlock.setTimestamp(TimeUtil.getTimeSeconds(0));
+		changeBlock.setTimestamp(System.currentTimeMillis()/1000);
 		changeBlock.setMessage(Constants.ZERO_HASH);
-		changeBlock.setPovHeight(Constants.ZERO_LONG);
+		changeBlock.setPovHeight(PovMng.getFittestHeader(client));
 		
 		if (privateKey!=null && privateKey.length==64) {
 			
