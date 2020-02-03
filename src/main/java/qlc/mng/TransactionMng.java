@@ -20,7 +20,6 @@ import qlc.utils.Constants;
 import qlc.utils.Encodes;
 import qlc.utils.Helper;
 import qlc.utils.StringUtil;
-import qlc.utils.TimeUtil;
 import qlc.utils.WorkUtil;
 
 public class TransactionMng {
@@ -67,7 +66,7 @@ public class TransactionMng {
 				tokenMeta.getBalance().subtract(amount),
 				tokenMeta.getHeader(), 
 				AccountMng.addressToPublicKey(to), 
-				TimeUtil.getTimeSeconds(0), 
+				System.currentTimeMillis()/1000, 
 				tokenMeta.getRepresentative());
 		
 		if (StringUtil.isNotBlank(sender))
