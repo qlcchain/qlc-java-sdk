@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 
 import qlc.bean.StateBlock;
+import qlc.mng.AccountMng;
 import qlc.mng.TransactionMng;
 import qlc.network.QlcClient;
 import qlc.network.QlcException;
@@ -141,4 +142,145 @@ public class TransactionRpc extends QlcRpc {
 				(StringUtil.isNotBlank(privateKey) ? Helper.hexStringToBytes(privateKey) : null));
 	}
 	
+	/**
+	 * 
+	 * Return send block hash
+	 * @param params
+	 * fromAddress : from address
+	 * toAddress : to address
+	 * tokenName : token name
+	 * amount : transfer amount
+	 * privateKey:private key
+	 * @return JSONObject  
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception 
+	 * @return JSONObject  
+	 */
+	public String sendToken(JSONArray params) throws IOException {
+		
+		try {
+			
+			LedgerRpc lrpc = new LedgerRpc(client);
+			
+			JSONObject sendBlockJson = generateSendBlock(params);
+			params = new JSONArray();
+			params.add(sendBlockJson);
+			JSONObject result = lrpc.process(params);
+			if (result.containsKey("result"))
+				return result.getString("result");
+			
+		} catch (Exception e) {
+			throw new QlcException(Constants.EXCEPTION_SEND_TOKEN_CODE_5001, Constants.EXCEPTION_SEND_TOKEN_MSG_5001 + e.getMessage());
+		}
+		
+		return null;
+		
+	}
+	
+	/**
+	 * 
+	 * Return process receive block result
+	 * @param params privateKey:private key
+	 * @return JSONObject  
+	 * @throws QlcException qlc exception
+	 * @throws IOException io exception 
+	 * @return JSONObject  
+	 */
+	public JSONArray receiveToken(JSONArray params) throws IOException {
+		
+		JSONArray result = new JSONArray();
+		
+		try {
+			
+			String priKey = params.getString(0);
+			
+			// get address by private key
+			String pubKey = priKey.substring(64);
+			String address = AccountMng.publicKeyToAddress(Helper.hexStringToBytes(pubKey));
+			
+			// pending block list
+			JSONArray pendingParams = new JSONArray();
+	    	JSONArray addressArr = new JSONArray();
+	    	addressArr.add(address);
+	    	pendingParams.add(addressArr);
+	    	pendingParams.add(-1);
+			
+			LedgerRpc lrpc = new LedgerRpc(client);
+			JSONObject pendingJson = lrpc.accountsPending(pendingParams);
+			if (pendingJson.containsKey("result")) {
+				pendingJson = pendingJson.getJSONObject("result");
+				JSONArray pendingArr = pendingJson.getJSONArray(address);
+				
+				if (pendingArr==null || pendingArr.size()==0)
+					return result;
+				
+				JSONObject pending = null;
+				JSONObject process = null;
+				String blockHash = null;
+				JSONObject sendBlock = null;
+				JSONObject receiveBlock = null;
+				JSONArray sendBlockParams = null;
+				for (int i=0; i<pendingArr.size(); i++) {
+					pending = pendingArr.getJSONObject(i);
+					blockHash = pending.getString("hash");
+					
+					// send block info
+					lrpc.blocksInfo(sendBlockParams);
+					sendBlock = getBlockInfo(blockHash, client);
+					if (sendBlock==null || sendBlock.isEmpty())
+						continue;
+					
+					// create receive block by send block
+					params = new JSONArray();
+					params.add(sendBlock);
+					params.add(address);
+					params.add(priKey);
+					receiveBlock = generateReceiveBlock(params);
+					
+					// process receive block
+					params = new JSONArray();
+					params.add(receiveBlock);
+					process = lrpc.process(params);
+					
+					result.add(process.get("result"));
+					
+					process = null;
+					blockHash = null;
+					sendBlock = null;
+					receiveBlock = null;
+					params = null;
+				}
+			}
+			
+		} catch (Exception e) {
+			throw new QlcException(Constants.EXCEPTION_RECEIVE_TOKEN_CODE_6001, Constants.EXCEPTION_RECEIVE_TOKEN_MSG_6001 + e.getMessage());
+		}
+		
+		return result;
+		
+	}
+	
+	private static JSONObject getBlockInfo(String hash, QlcClient client) {
+		
+		JSONObject result = new JSONObject();
+		
+    	try {
+			JSONArray params = new JSONArray();
+			String[] hashes = {hash};
+			params.add(hashes);
+			
+			LedgerRpc lrpc = new LedgerRpc(client);
+			JSONObject json = lrpc.blocksInfo(params);
+			if (json.containsKey("result")) {
+				JSONArray jsonArray = json.getJSONArray("result");
+				if (!jsonArray.isEmpty())
+					result = jsonArray.getJSONObject(0);
+			}
+		} catch (IOException e) {
+			
+		}
+		
+		return result;
+		
+	}
 }
