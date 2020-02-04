@@ -79,6 +79,12 @@ public class Constants {
 	public static final int EXCEPTION_PUBLISH_BLOCK_CODE_4001 = 4001;	
 	public static final String EXCEPTION_PUBLISH_BLOCK_MSG_4001 = "Parameter error for publish block";
 	
+	public static final int EXCEPTION_SEND_TOKEN_CODE_5001 = 5001;	
+	public static final String EXCEPTION_SEND_TOKEN_MSG_5001 = "Send token error";
+	
+	public static final int EXCEPTION_RECEIVE_TOKEN_CODE_6001 = 6001;	
+	public static final String EXCEPTION_RECEIVE_TOKEN_MSG_6001 = "Receive token error";
+	
 	// block type
 	public static final String BLOCK_TYPE_OPEN = "Open";
 	public static final String BLOCK_TYPE_SEND = "Send";
